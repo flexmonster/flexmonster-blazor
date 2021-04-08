@@ -1,0 +1,66 @@
+﻿@page "/"
+
+<button @onclick="OnGetButtonClick">GetReport</button>
+<button @onclick="OnSetButtonClick">SetReport</button>
+
+<FlexmonsterComponent @ref="flexmonster"
+                      Report="@report"
+                      OnCellClick="@OnCellClick"
+                      OnCellDoubleClick="@OnCellClick2"
+                      LicenseKey="Z7U0-XCIG5Z-3T670R-590X19">
+
+</FlexmonsterComponent>
+
+@code{
+
+    public void CustomizeCellCustom(CellBuilder builder, CellData cellData)
+    {
+        if (cellData.RowIndex.Value % 2 == 0)
+        {
+            builder.AddClass("alert1");
+        }
+        Console.WriteLine("work!");
+
+    }
+
+    private FlexmonsterComponent flexmonster;
+    private Report loadedReport;
+    Report report = new Report()
+    {
+        DataSource = new DataSource()
+        {
+            Type = "json",
+            Filename = "https://cdn.flexmonster.com/data/retail-data.json"
+        }
+    };
+
+    private async Task OnGetButtonClick()
+    {
+        await flexmonster.CustomizeCell(CustomizeCellCustom);
+        loadedReport = await flexmonster.GetReport();
+    }
+
+    private async void OnSetButtonClick()
+    {
+        var row = loadedReport.Slice.Rows[0];
+        if (row.UniqueName == "Country")
+        {
+            row.UniqueName = "City";
+        }
+        else
+        {
+            row.UniqueName = "Country";
+        }
+        await flexmonster.SetReport(loadedReport);
+    }
+
+    public void OnCellClick(CellData cell)
+    {
+        Console.WriteLine(cell.Height);
+    }
+
+    public void OnCellClick2(CellData cell)
+    {
+        Console.WriteLine(cell.Width);
+    }
+}
