@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text.Json.Serialization;
-using System.Threading.Tasks;
+﻿using System.Text.Json.Serialization;
 
 namespace Flexmonster.Blazor
 {
@@ -20,17 +16,14 @@ namespace Flexmonster.Blazor
         [JsonPropertyName("rows")]
         public SliceHierarchy[] Rows { get; set; }
 
-        //TODO:  drillObject 
         [JsonPropertyName("drills")]
-        public object Drills { get; set; }
+        public DrillObject Drills { get; set; }
 
-        //TODO:  expandObject 
         [JsonPropertyName("expands")]
-        public object Expands { get; set; }
+        public ExpandObject Expands { get; set; }
 
-        //TODO:  sortingObject 
         [JsonPropertyName("sorting")]
-        public object Sorting { get; set; }
+        public SortingObject Sorting { get; set; }
 
         [JsonPropertyName("drillThrough")]
         public string[] DrillThrough { get; set; }

@@ -7,7 +7,6 @@ namespace Flexmonster.Blazor
         [JsonPropertyName("showFilter")]
         public bool? ShowFilter { get; set; }
 
-        //can be enum
         [JsonPropertyName("showGrandTotals")]
         public string ShowGrandTotals { get; set; }
 

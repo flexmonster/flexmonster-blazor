@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<package >
+  <metadata>
+    <id>$id$</id>
+    <version>$version$</version>
+    <title>$title$</title>
+    <authors>$author$</authors>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <licenseUrl>https://www.flexmonster.com/terms/Flexmonster-Software-License-Agreement.pdf</licenseUrl>
+    <projectUrl>https://www.flexmonster.com</projectUrl>
+    <iconUrl>http://www.flexmonster.com/base/assets/favicon/apple-touch-icon-152x152.png</iconUrl>
+    <description>Blazor Module for Flexmonster Pivot Table &amp; Charts</description>
+    <copyright>$copyright$</copyright>
+	<dependencies>
+      <dependency id="Microsoft.AspNetCore.Components" version="3.1.12" />
+      <dependency id="Microsoft.AspNetCore.Components.Web" version="3.1.12" />
+    </dependencies>
+  </metadata>
+</package>

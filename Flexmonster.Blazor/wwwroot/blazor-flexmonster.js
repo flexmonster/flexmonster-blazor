@@ -1,6 +1,10 @@
-﻿import './flexmonster/flexmonster.js';
+﻿var script = document.createElement("script");
+script.src = "https://cdn.flexmonster.com/flexmonster.js";
+document.head.appendChild(script);
 
-window.initFlexmonster = (instance, flexmonsterParams, id, htmlref) => {
+window.blazorflexmonster = {};
+
+window.blazorflexmonster.initFlexmonster = (instance, flexmonsterParams, id) => {
 	var pivot = new Flexmonster(flexmonsterParams);
 
 	pivot.on('afterchartdraw', function () {
@@ -13,10 +17,6 @@ window.initFlexmonster = (instance, flexmonsterParams, id, htmlref) => {
 
 	pivot.on('beforegriddraw', function (param) {
 		instance.invokeMethodAsync("BeforeGridDrawCallBack", param);
-	});
-
-	pivot.on('beforetoolbarcreated', function (toolbar) {
-		instance.invokeMethodAsync("BeforeToolbarCreatedCallBack", toolbar);
 	});
 
 	pivot.on('cellclick', function (cell) {
@@ -52,7 +52,11 @@ window.initFlexmonster = (instance, flexmonsterParams, id, htmlref) => {
 	});
 
 	pivot.on('drillthroughopen', function (cell) {
-		instance.invokeMethodAsync("DrillthroughOpenCallBack", cell);
+		if (cell.element !== undefined) {
+			instance.invokeMethodAsync("DrillthroughOpenChartCallBack", cell);
+		} else {
+			instance.invokeMethodAsync("DrillthroughOpenCellCallBack", cell);
+		}
 	});
 
 	pivot.on('exportcomplete', function () {
@@ -158,23 +162,42 @@ window.initFlexmonster = (instance, flexmonsterParams, id, htmlref) => {
 	pivot.on('runningquery', function () {
 		instance.invokeMethodAsync("RunningQueryCallBack");
 	});
-	//htmlref.dataset.flex = pivot;
+
 	window[id] = pivot;
-
+}
+window.blazorflexmonster.exportToApiCall = (id, instance, type, params) => {
+	if (type === "csv" || type === "html") {
+		window[id].exportTo(type, params, (res, error) => {
+			instance.invokeMethodAsync("ExportToCallBack", res, error);
+		});
+	} else {
+		window[id].exportTo(type, params);
+	}
 }
 
-window.customizeCellWrapper = (instance, id) => {
-	window[id].customizeCell((builder, cell) => {
-		instance.invokeMethod("CustomizeCellFunctionCallBack", builder, cell);
-		var result = instance.invokeMethod("GetAddClassResult");
-		for (var i = 0; i < result.length; i++) {
-			builder.addClass(result[i]);
-		}
-	});
+window.blazorflexmonster.getMembersApiCall = (id, instance, hierarchyName, memberName) => {
+	if (memberName === null) {
+		window[id].getMembers(hierarchyName, memberName, (members) => {
+			instance.invokeMethodAsync("GetMembersCallBack", members);
+		});
+	} else {
+		window[id].getMembers(hierarchyName);
+	}
 }
 
+window.blazorflexmonster.openCalculatedValueEditorApiCall = (id, instance, uniqueName) => {
+	if (uniqueName === null) {
+		window[id].openCalculatedValueEditor();
+	} else {
+		window[id].openCalculatedValueEditor(hierarchyName, (res) => {
+			instance.invokeMethodAsync("OpenCalculatedValueEditorCallBack", res);
+		});
+	}
+}
 
-
-window.invokeApiCall = (htmlref, name, params) => {
-	htmlref.dataset.flex[name].apply(null, params);
+window.blazorflexmonster.saveApiCall = (id, instance, params) => {
+	params.callbackHandler = (result, error) => {
+		instance.invokeMethodAsync("SaveCallBack", result, error);
+	}
+	window[id].save(params);
 }

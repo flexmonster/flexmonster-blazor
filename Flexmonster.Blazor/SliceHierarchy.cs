@@ -19,7 +19,6 @@ namespace Flexmonster.Blazor
         [JsonPropertyName("levelName")]
         public string LevelName { get; set; }
 
-        //can be enum
         [JsonPropertyName("sort")]
         public string Sort { get; set; }
 

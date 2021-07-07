@@ -2,7 +2,8 @@
 
 namespace Flexmonster.Blazor
 {
-    public class NumberQuery
+    //unified class for number/label/date/time/value query
+    public class QueryObject
     {
         [JsonPropertyName("equal")]
         public string Equal { get; set; }
@@ -45,5 +46,20 @@ namespace Flexmonster.Blazor
 
         [JsonPropertyName("not_between")]
         public string[] NotBetween { get; set; }
+
+        [JsonPropertyName("top")]
+        public int? Top { get; set; }
+
+        [JsonPropertyName("bottom")]
+        public int? Bottom { get; set; }
+
+        [JsonPropertyName("last")]
+        public string Last { get; set; }
+
+        [JsonPropertyName("current")]
+        public string Current { get; set; }
+
+        [JsonPropertyName("next")]
+        public string Next { get; set; }
     }
 }

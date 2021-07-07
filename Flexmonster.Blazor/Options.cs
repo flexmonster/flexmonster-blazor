@@ -31,7 +31,6 @@ namespace Flexmonster.Blazor
         [JsonPropertyName("dateTimePattern")]
         public string DateTimePattern { get; set; }
 
-        //can be enum
         [JsonPropertyName("defaultHierarchySortName")]
         public string DefaultHierarchySortName { get; set; }
 
@@ -40,9 +39,6 @@ namespace Flexmonster.Blazor
 
         [JsonPropertyName("editing")]
         public bool? Editing { get; set; }
-
-        [JsonPropertyName("selectEmptyCells")]
-        public bool? SelectEmptyCells { get; set; }
 
         [JsonPropertyName("showAggregations")]
         public bool? ShowAggregations { get; set; }
@@ -68,7 +64,6 @@ namespace Flexmonster.Blazor
         [JsonPropertyName("useOlapFormatting")]
         public bool? UseOlapFormatting { get; set; }
 
-        //can be enum
         [JsonPropertyName("defaultDateType")]
         public string DefaultDateType { get; set; }
 
@@ -114,8 +109,6 @@ namespace Flexmonster.Blazor
         [JsonPropertyName("fieldListPosition")]
         public string FieldListPosition { get; set; }
 
-        //true and false also - do same as showGrandTotals? 
-        //can be enum
         [JsonPropertyName("showEmptyValues")]
         public string ShowEmptyValues { get; set; }
 

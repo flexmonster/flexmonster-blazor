@@ -11,9 +11,9 @@ namespace Flexmonster.Blazor
         public int? Idx { get; set; }
 
         [JsonPropertyName("tuple")]
-        public string[] tuple { get; set; }
+        public string[] Tuple { get; set; }
 
         [JsonPropertyName("measure")]
-        public MeasureObject measure { get; set; }
+        public MeasureObject Measure { get; set; }
     }
 }

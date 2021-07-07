@@ -10,9 +10,8 @@ namespace Flexmonster.Blazor
         [JsonPropertyName("columnIndex")]
         public int? ColumnIndex { get; set; }
 
-        // TODO : define type
         [JsonPropertyName("columns")]
-        public object[] Columns { get; set; }
+        public Member[] Columns { get; set; }
 
         [JsonPropertyName("escapedLabel")]
         public string EscapedLabel { get; set; }
@@ -29,7 +28,6 @@ namespace Flexmonster.Blazor
         [JsonPropertyName("height")]
         public int? Height { get; set; }
 
-        // TODO: Hierarchy object
         [JsonPropertyName("hierarchy")]
         public Hierarchy Hierarchy { get; set; }
 
@@ -63,28 +61,23 @@ namespace Flexmonster.Blazor
         [JsonPropertyName("level")]
         public int? Level { get; set; }
 
-        //TODO: measure object
         [JsonPropertyName("measure")]
-        public object Measure { get; set; }
+        public Measure Measure { get; set; }
 
-        //TODO: member object
         [JsonPropertyName("member")]
-        public object Member { get; set; }
+        public Member Member { get; set; }
 
-        // !!! string | string[]
         [JsonPropertyName("recordId")]
         public string[] RecordId { get; set; }
 
-        // CellData[] - but recursive cant serialize
         [JsonPropertyName("rowData")]
         public object RowData { get; set; }
 
         [JsonPropertyName("rowIndex")]
         public int? RowIndex { get; set; }
 
-        // TODO : define type
         [JsonPropertyName("rows")]
-        public object[] Rows { get; set; }
+        public Member[] Rows { get; set; }
 
         [JsonPropertyName("type")]
         public string Type { get; set; }

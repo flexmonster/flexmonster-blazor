@@ -22,7 +22,6 @@ namespace Flexmonster.Blazor
         [JsonPropertyName("label")]
         public string uniqueName { get; set; }
 
-        //TODO: Level object
         [JsonPropertyName("levels")]
         public object[] Levels { get; set; }
 

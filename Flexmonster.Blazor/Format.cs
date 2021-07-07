@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text.Json.Serialization;
-using System.Threading.Tasks;
+﻿using System.Text.Json.Serialization;
 
 namespace Flexmonster.Blazor
 {
@@ -32,9 +28,6 @@ namespace Flexmonster.Blazor
         [JsonPropertyName("currencySymbol")]
         public string CurrencySymbol { get; set; }
 
-        [JsonPropertyName("currencySymbolAlign")]
-        public string CurrencySymbolAlign { get; set; }
-
         [JsonPropertyName("negativeCurrencyFormat")]
         public string NegativeCurrencyFormat { get; set; }
 
@@ -46,7 +39,7 @@ namespace Flexmonster.Blazor
 
         [JsonPropertyName("infinityValue ")]
         public string InfinityValue { get; set; }
-        
+
         [JsonPropertyName("divideByZeroValue ")]
         public string DivideByZeroValue { get; set; }
 

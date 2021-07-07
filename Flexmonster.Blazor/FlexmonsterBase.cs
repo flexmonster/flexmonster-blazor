@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Components;
 using Microsoft.JSInterop;
 using System;
+using System.Collections.Generic;
 using System.Text.Json;
 using System.Threading.Tasks;
 
@@ -9,6 +10,7 @@ namespace Flexmonster.Blazor
     public class FlexmonsterBase : ComponentBase
     {
         protected ElementReference pivotContainerReference;
+
         [Inject]
         private IJSRuntime JsRuntime { get; set; }
 
@@ -28,7 +30,7 @@ namespace Flexmonster.Blazor
         public string Height { get; set; }
 
         [Parameter]
-        public string ComponentFolder { get; set; } = "flexmonster/";
+        public string ComponentFolder { get; set; } = "https://cdn.flexmonster.com/";
 
         [Parameter]
         public Report Report { get; set; }
@@ -38,38 +40,36 @@ namespace Flexmonster.Blazor
 
         protected string id;
 
+        internal FlexmonsterBaseInternal _flexmonsterBaseInternal;
+
         protected override Task OnInitializedAsync()
         {
             id = "pivot-container-" + Guid.NewGuid();
+            _flexmonsterBaseInternal = new FlexmonsterBaseInternal(this);
             return base.OnInitializedAsync();
         }
 
         #region AfterChartDraw
 
-        public delegate void AfterChartDrawHandler();
+        public delegate void OnAfterChartDrawHandler();
 
-        private event AfterChartDrawHandler AfterChartDrawEvent;
+        private event OnAfterChartDrawHandler OnAfterChartDrawEvent;
 
         [Parameter]
-        public AfterChartDrawHandler AfterChartDraw
+        public OnAfterChartDrawHandler OnAfterChartDraw
         {
-            get
-            {
-                return AfterChartDrawEvent;
-            }
             set
             {
-                if (AfterChartDrawEvent == null)
+                if (OnAfterChartDrawEvent == null)
                 {
-                    AfterChartDrawEvent += value;
+                    OnAfterChartDrawEvent += value;
                 }
             }
         }
 
-        [JSInvokable]
-        public void AfterChartDrawCallBack()
+        internal void InvokeAfterChartDrawEvent()
         {
-            AfterChartDrawEvent?.Invoke();
+            OnAfterChartDrawEvent?.Invoke();
         }
 
         #endregion AfterChartDraw
@@ -78,15 +78,11 @@ namespace Flexmonster.Blazor
 
         public delegate void OnAfterGridDrawHandler(GridDrawParams gridDrawParams);
 
-        private event OnAfterGridDrawHandler OnAfterGridDrawEvent;
+        public event OnAfterGridDrawHandler OnAfterGridDrawEvent;
 
         [Parameter]
         public OnAfterGridDrawHandler OnAfterGridDraw
         {
-            get
-            {
-                return OnAfterGridDrawEvent;
-            }
             set
             {
                 if (OnAfterGridDrawEvent == null)
@@ -96,8 +92,7 @@ namespace Flexmonster.Blazor
             }
         }
 
-        [JSInvokable]
-        public void AfterGridDrawCallBack(GridDrawParams gridDrawParams)
+        internal void InvokeAfterGridDrawEvent(GridDrawParams gridDrawParams)
         {
             OnAfterGridDrawEvent?.Invoke(gridDrawParams);
         }
@@ -108,15 +103,11 @@ namespace Flexmonster.Blazor
 
         public delegate void OnBeforeGridDrawHandler(GridDrawParams gridDrawParams);
 
-        private event OnBeforeGridDrawHandler OnBeforeGridDrawEvent;
+        public event OnBeforeGridDrawHandler OnBeforeGridDrawEvent;
 
         [Parameter]
         public OnBeforeGridDrawHandler OnBeforeGridDraw
         {
-            get
-            {
-                return OnBeforeGridDrawEvent;
-            }
             set
             {
                 if (OnBeforeGridDrawEvent == null)
@@ -126,8 +117,7 @@ namespace Flexmonster.Blazor
             }
         }
 
-        [JSInvokable]
-        public void BeforeGridDrawCallBack(GridDrawParams gridDrawParams)
+        internal void InvokeBeforeGridDrawEvent(GridDrawParams gridDrawParams)
         {
             OnBeforeGridDrawEvent?.Invoke(gridDrawParams);
         }
@@ -135,19 +125,16 @@ namespace Flexmonster.Blazor
         #endregion BeforeGridDraw
 
         //TODO: change object to toolbar class
+
         #region BeforeToolbarCreated
 
         public delegate void OnBeforeToolbarCreatedHandler(object toolbar);
 
-        private event OnBeforeToolbarCreatedHandler OnBeforeToolbarCreatedEvent;
+        public event OnBeforeToolbarCreatedHandler OnBeforeToolbarCreatedEvent;
 
         [Parameter]
         public OnBeforeToolbarCreatedHandler OnBeforeToolbarCreated
         {
-            get
-            {
-                return OnBeforeToolbarCreatedEvent;
-            }
             set
             {
                 if (OnBeforeToolbarCreatedEvent == null)
@@ -157,8 +144,7 @@ namespace Flexmonster.Blazor
             }
         }
 
-        [JSInvokable]
-        public void BeforeToolbarCreatedCallBack(object toolbar)
+        internal void InvokeBeforeToolbarCreatedEvent(object toolbar)
         {
             OnBeforeToolbarCreatedEvent?.Invoke(toolbar);
         }
@@ -174,10 +160,6 @@ namespace Flexmonster.Blazor
         [Parameter]
         public OnCellClickHandler OnCellClick
         {
-            get
-            {
-                return OnCellClickEvent;
-            }
             set
             {
                 if (OnCellClickEvent == null)
@@ -187,8 +169,7 @@ namespace Flexmonster.Blazor
             }
         }
 
-        [JSInvokable]
-        public void CellClickCallBack(CellData cellData)
+        internal void InvokeCellClickEvent(CellData cellData)
         {
             OnCellClickEvent?.Invoke(cellData);
         }
@@ -199,15 +180,11 @@ namespace Flexmonster.Blazor
 
         public delegate void OnCellDoubleClickHandler(CellData cellData);
 
-        private event OnCellDoubleClickHandler OnCellDoubleClickEvent;
+        public event OnCellDoubleClickHandler OnCellDoubleClickEvent;
 
         [Parameter]
         public OnCellDoubleClickHandler OnCellDoubleClick
         {
-            get
-            {
-                return OnCellDoubleClickEvent;
-            }
             set
             {
                 if (OnCellDoubleClickEvent == null)
@@ -217,8 +194,7 @@ namespace Flexmonster.Blazor
             }
         }
 
-        [JSInvokable]
-        public void CellDoubleClickCallBack(CellData cellData)
+        internal void InvokeCellDoubleClickEvent(CellData cellData)
         {
             OnCellDoubleClickEvent?.Invoke(cellData);
         }
@@ -229,15 +205,11 @@ namespace Flexmonster.Blazor
 
         public delegate void OnChartClickHandler(ChartData chartData);
 
-        private event OnChartClickHandler OnChartClickEvent;
+        public event OnChartClickHandler OnChartClickEvent;
 
         [Parameter]
         public OnChartClickHandler OnChartClick
         {
-            get
-            {
-                return OnChartClickEvent;
-            }
             set
             {
                 if (OnChartClickEvent == null)
@@ -247,8 +219,7 @@ namespace Flexmonster.Blazor
             }
         }
 
-        [JSInvokable]
-        public void ChartClickCallBack(ChartData chartData)
+        internal void InvokeChartClickEvent(ChartData chartData)
         {
             OnChartClickEvent?.Invoke(chartData);
         }
@@ -256,19 +227,16 @@ namespace Flexmonster.Blazor
         #endregion ChartClick
 
         //check
+
         #region DataChanged
 
         public delegate void OnDataChangedHandler(DataChangedParams dataChangedParams);
 
-        private event OnDataChangedHandler OnDataChangedEvent;
+        public event OnDataChangedHandler OnDataChangedEvent;
 
         [Parameter]
         public OnDataChangedHandler OnDataChanged
         {
-            get
-            {
-                return OnDataChangedEvent;
-            }
             set
             {
                 if (OnDataChangedEvent == null)
@@ -278,8 +246,7 @@ namespace Flexmonster.Blazor
             }
         }
 
-        [JSInvokable]
-        public void DataChangedCallBack(DataChangedParams dataChangedParams)
+        internal void InvokeDataChangedEvent(DataChangedParams dataChangedParams)
         {
             OnDataChangedEvent?.Invoke(dataChangedParams);
         }
@@ -290,15 +257,11 @@ namespace Flexmonster.Blazor
 
         public delegate void OnDataErrorHandler(DataErrorParams dataErrorParams);
 
-        private event OnDataErrorHandler OnDataErrorEvent;
+        public event OnDataErrorHandler OnDataErrorEvent;
 
         [Parameter]
         public OnDataErrorHandler OnDataError
         {
-            get
-            {
-                return OnDataErrorEvent;
-            }
             set
             {
                 if (OnDataErrorEvent == null)
@@ -308,8 +271,7 @@ namespace Flexmonster.Blazor
             }
         }
 
-        [JSInvokable]
-        public void DataErrorCallBack(DataErrorParams dataErrorParams)
+        internal void InvokeDataErrorEvent(DataErrorParams dataErrorParams)
         {
             OnDataErrorEvent?.Invoke(dataErrorParams);
         }
@@ -320,15 +282,11 @@ namespace Flexmonster.Blazor
 
         public delegate void OnDataFileCancelledHandler();
 
-        private event OnDataFileCancelledHandler OnDataFileCancelledEvent;
+        public event OnDataFileCancelledHandler OnDataFileCancelledEvent;
 
         [Parameter]
         public OnDataFileCancelledHandler OnDataFileCancelled
         {
-            get
-            {
-                return OnDataFileCancelledEvent;
-            }
             set
             {
                 if (OnDataFileCancelledEvent == null)
@@ -338,8 +296,7 @@ namespace Flexmonster.Blazor
             }
         }
 
-        [JSInvokable]
-        public void DataFileCancelledCallBack()
+        internal void InvokeDataFileCancelledEvent()
         {
             OnDataFileCancelledEvent?.Invoke();
         }
@@ -350,15 +307,11 @@ namespace Flexmonster.Blazor
 
         public delegate void OnDataLoadedHandler();
 
-        private event OnDataLoadedHandler OnDataLoadedEvent;
+        public event OnDataLoadedHandler OnDataLoadedEvent;
 
         [Parameter]
         public OnDataLoadedHandler OnDataLoaded
         {
-            get
-            {
-                return OnDataLoadedEvent;
-            }
             set
             {
                 if (OnDataLoadedEvent == null)
@@ -368,8 +321,7 @@ namespace Flexmonster.Blazor
             }
         }
 
-        [JSInvokable]
-        public void DataLoadedCallBack()
+        internal void InvokeDataLoadedEvent()
         {
             OnDataLoadedEvent?.Invoke();
         }
@@ -380,15 +332,11 @@ namespace Flexmonster.Blazor
 
         public delegate void OnDrillthroughCloseHandler();
 
-        private event OnDrillthroughCloseHandler OnDrillthroughCloseEvent;
+        public event OnDrillthroughCloseHandler OnDrillthroughCloseEvent;
 
         [Parameter]
         public OnDrillthroughCloseHandler OnDrillthroughClose
         {
-            get
-            {
-                return OnDrillthroughCloseEvent;
-            }
             set
             {
                 if (OnDrillthroughCloseEvent == null)
@@ -398,27 +346,24 @@ namespace Flexmonster.Blazor
             }
         }
 
-        [JSInvokable]
-        public void DrillthroughCloseCallBack()
+        internal void InvokeDrillthroughCloseEvent()
         {
             OnDrillthroughCloseEvent?.Invoke();
         }
 
         #endregion DrillthroughClose
+
         //change CellData to CellData | ChartData
+
         #region DrillthroughOpen
 
-        public delegate void OnDrillthroughOpenHandler(CellData cellData);
+        public delegate void OnDrillthroughOpenHandler(object data);
 
         public event OnDrillthroughOpenHandler OnDrillthroughOpenEvent;
 
         [Parameter]
         public OnDrillthroughOpenHandler OnDrillthroughOpen
         {
-            get
-            {
-                return OnDrillthroughOpenEvent;
-            }
             set
             {
                 if (OnDrillthroughOpenEvent == null)
@@ -428,10 +373,9 @@ namespace Flexmonster.Blazor
             }
         }
 
-        [JSInvokable]
-        public void DrillthroughOpenCallBack(CellData cellData)
+        internal void InvokeDrillthroughOpenEvent(object data)
         {
-            OnDrillthroughOpenEvent?.Invoke(cellData);
+            OnDrillthroughOpenEvent?.Invoke(data);
         }
 
         #endregion DrillthroughOpen
@@ -440,15 +384,11 @@ namespace Flexmonster.Blazor
 
         public delegate void OnExportCompleteHandler();
 
-        private event OnExportCompleteHandler OnExportCompleteEvent;
+        public event OnExportCompleteHandler OnExportCompleteEvent;
 
         [Parameter]
         public OnExportCompleteHandler OnExportComplete
         {
-            get
-            {
-                return OnExportCompleteEvent;
-            }
             set
             {
                 if (OnExportCompleteEvent == null)
@@ -458,8 +398,7 @@ namespace Flexmonster.Blazor
             }
         }
 
-        [JSInvokable]
-        public void ExportCompleteCallBack()
+        internal void InvokeExportCompleteEvent()
         {
             OnExportCompleteEvent?.Invoke();
         }
@@ -470,15 +409,11 @@ namespace Flexmonster.Blazor
 
         public delegate void OnExportStartHandler();
 
-        private event OnExportStartHandler OnExportStartEvent;
+        public event OnExportStartHandler OnExportStartEvent;
 
         [Parameter]
         public OnExportStartHandler OnExportStart
         {
-            get
-            {
-                return OnExportStartEvent;
-            }
             set
             {
                 if (OnExportStartEvent == null)
@@ -488,8 +423,7 @@ namespace Flexmonster.Blazor
             }
         }
 
-        [JSInvokable]
-        public void ExportStartCallBack()
+        internal void InvokeExportStartEvent()
         {
             OnExportStartEvent?.Invoke();
         }
@@ -500,15 +434,11 @@ namespace Flexmonster.Blazor
 
         public delegate void OnFieldsListCloseHandler();
 
-        private event OnFieldsListCloseHandler OnFieldsListCloseEvent;
+        public event OnFieldsListCloseHandler OnFieldsListCloseEvent;
 
         [Parameter]
         public OnFieldsListCloseHandler OnFieldsListClose
         {
-            get
-            {
-                return OnFieldsListCloseEvent;
-            }
             set
             {
                 if (OnFieldsListCloseEvent == null)
@@ -518,8 +448,7 @@ namespace Flexmonster.Blazor
             }
         }
 
-        [JSInvokable]
-        public void FieldsListCloseCallBack()
+        internal void InvokeFieldsListCloseEvent()
         {
             OnFieldsListCloseEvent?.Invoke();
         }
@@ -530,15 +459,11 @@ namespace Flexmonster.Blazor
 
         public delegate void OnFieldsListOpenHandler();
 
-        private event OnFieldsListOpenHandler OnFieldsListOpenEvent;
+        public event OnFieldsListOpenHandler OnFieldsListOpenEvent;
 
         [Parameter]
         public OnFieldsListOpenHandler OnFieldsListOpen
         {
-            get
-            {
-                return OnFieldsListOpenEvent;
-            }
             set
             {
                 if (OnFieldsListOpenEvent == null)
@@ -548,8 +473,7 @@ namespace Flexmonster.Blazor
             }
         }
 
-        [JSInvokable]
-        public void FieldsListOpenCallBack()
+        internal void InvokeFieldsListOpenEvent()
         {
             OnFieldsListOpenEvent?.Invoke();
         }
@@ -560,15 +484,11 @@ namespace Flexmonster.Blazor
 
         public delegate void OnFilterCloseHandler();
 
-        private event OnFilterCloseHandler OnFilterCloseEvent;
+        public event OnFilterCloseHandler OnFilterCloseEvent;
 
         [Parameter]
         public OnFilterCloseHandler OnFilterClose
         {
-            get
-            {
-                return OnFilterCloseEvent;
-            }
             set
             {
                 if (OnFilterCloseEvent == null)
@@ -578,8 +498,7 @@ namespace Flexmonster.Blazor
             }
         }
 
-        [JSInvokable]
-        public void FilterCloseCallBack()
+        internal void InvokeFilterCloseEvent()
         {
             OnFilterCloseEvent?.Invoke();
         }
@@ -595,10 +514,6 @@ namespace Flexmonster.Blazor
         [Parameter]
         public OnFilterOpenHandler OnFilterOpen
         {
-            get
-            {
-                return OnFilterOpenEvent;
-            }
             set
             {
                 if (OnFilterOpenEvent == null)
@@ -608,8 +523,7 @@ namespace Flexmonster.Blazor
             }
         }
 
-        [JSInvokable]
-        public void FilterOpenCallBack(FilterOpenParams filterOpenParams)
+        internal void InvokeFilterOpenEvent(FilterOpenParams filterOpenParams)
         {
             OnFilterOpenEvent?.Invoke(filterOpenParams);
         }
@@ -620,15 +534,11 @@ namespace Flexmonster.Blazor
 
         public delegate void OnLoadingDataHandler();
 
-        private event OnLoadingDataHandler OnLoadingDataEvent;
+        public event OnLoadingDataHandler OnLoadingDataEvent;
 
         [Parameter]
         public OnLoadingDataHandler OnLoadingData
         {
-            get
-            {
-                return OnLoadingDataEvent;
-            }
             set
             {
                 if (OnLoadingDataEvent == null)
@@ -638,8 +548,7 @@ namespace Flexmonster.Blazor
             }
         }
 
-        [JSInvokable]
-        public void LoadingDataCallBack()
+        internal void InvokeLoadingDataEvent()
         {
             OnLoadingDataEvent?.Invoke();
         }
@@ -650,15 +559,11 @@ namespace Flexmonster.Blazor
 
         public delegate void OnLoadingLocalizationHandler();
 
-        private event OnLoadingLocalizationHandler OnLoadingLocalizationEvent;
+        public event OnLoadingLocalizationHandler OnLoadingLocalizationEvent;
 
         [Parameter]
         public OnLoadingLocalizationHandler OnLoadingLocalization
         {
-            get
-            {
-                return OnLoadingLocalizationEvent;
-            }
             set
             {
                 if (OnLoadingLocalizationEvent == null)
@@ -668,8 +573,7 @@ namespace Flexmonster.Blazor
             }
         }
 
-        [JSInvokable]
-        public void LoadingLocalizationCallBack()
+        internal void InvokeLoadingLocalizationEvent()
         {
             OnLoadingLocalizationEvent?.Invoke();
         }
@@ -680,15 +584,11 @@ namespace Flexmonster.Blazor
 
         public delegate void OnLoadingOLAPStructureHandler();
 
-        private event OnLoadingOLAPStructureHandler OnLoadingOLAPStructureEvent;
+        public event OnLoadingOLAPStructureHandler OnLoadingOLAPStructureEvent;
 
         [Parameter]
         public OnLoadingOLAPStructureHandler OnLoadingOLAPStructure
         {
-            get
-            {
-                return OnLoadingOLAPStructureEvent;
-            }
             set
             {
                 if (OnLoadingOLAPStructureEvent == null)
@@ -698,8 +598,7 @@ namespace Flexmonster.Blazor
             }
         }
 
-        [JSInvokable]
-        public void LoadingOLAPStructureCallBack()
+        internal void InvokeLoadingOLAPStructureEvent()
         {
             OnLoadingOLAPStructureEvent?.Invoke();
         }
@@ -710,15 +609,11 @@ namespace Flexmonster.Blazor
 
         public delegate void OnLoadingReportFileHandler();
 
-        private event OnLoadingReportFileHandler OnLoadingReportFileEvent;
+        public event OnLoadingReportFileHandler OnLoadingReportFileEvent;
 
         [Parameter]
         public OnLoadingReportFileHandler OnLoadingReportFile
         {
-            get
-            {
-                return OnLoadingReportFileEvent;
-            }
             set
             {
                 if (OnLoadingReportFileEvent == null)
@@ -728,8 +623,7 @@ namespace Flexmonster.Blazor
             }
         }
 
-        [JSInvokable]
-        public void LoadingReportFileCallBack()
+        internal void InvokeLoadingReportFileEvent()
         {
             OnLoadingReportFileEvent?.Invoke();
         }
@@ -740,15 +634,11 @@ namespace Flexmonster.Blazor
 
         public delegate void OnLocalizationErrorHandler();
 
-        private event OnLocalizationErrorHandler OnLocalizationErrorEvent;
+        public event OnLocalizationErrorHandler OnLocalizationErrorEvent;
 
         [Parameter]
         public OnLocalizationErrorHandler OnLocalizationError
         {
-            get
-            {
-                return OnLocalizationErrorEvent;
-            }
             set
             {
                 if (OnLocalizationErrorEvent == null)
@@ -758,8 +648,7 @@ namespace Flexmonster.Blazor
             }
         }
 
-        [JSInvokable]
-        public void LocalizationErrorCallBack()
+        internal void InvokeLocalizationErrorEvent()
         {
             OnLocalizationErrorEvent?.Invoke();
         }
@@ -770,15 +659,11 @@ namespace Flexmonster.Blazor
 
         public delegate void OnLocalizationLoadedHandler();
 
-        private event OnLocalizationLoadedHandler OnLocalizationLoadedEvent;
+        public event OnLocalizationLoadedHandler OnLocalizationLoadedEvent;
 
         [Parameter]
         public OnLocalizationLoadedHandler OnLocalizationLoaded
         {
-            get
-            {
-                return OnLocalizationLoadedEvent;
-            }
             set
             {
                 if (OnLocalizationLoadedEvent == null)
@@ -788,8 +673,7 @@ namespace Flexmonster.Blazor
             }
         }
 
-        [JSInvokable]
-        public void LocalizationLoadedCallBack()
+        internal void InvokeLocalizationLoadedEvent()
         {
             OnLocalizationLoadedEvent?.Invoke();
         }
@@ -800,15 +684,11 @@ namespace Flexmonster.Blazor
 
         public delegate void OnOLAPStructureErrorHandler();
 
-        private event OnOLAPStructureErrorHandler OnOLAPStructureErrorEvent;
+        public event OnOLAPStructureErrorHandler OnOLAPStructureErrorEvent;
 
         [Parameter]
         public OnOLAPStructureErrorHandler OnOLAPStructureError
         {
-            get
-            {
-                return OnOLAPStructureErrorEvent;
-            }
             set
             {
                 if (OnOLAPStructureErrorEvent == null)
@@ -818,8 +698,7 @@ namespace Flexmonster.Blazor
             }
         }
 
-        [JSInvokable]
-        public void OLAPStructureErrorCallBack()
+        internal void InvokeOLAPStructureErrorEvent()
         {
             OnOLAPStructureErrorEvent?.Invoke();
         }
@@ -830,15 +709,11 @@ namespace Flexmonster.Blazor
 
         public delegate void OnOLAPStructureLoadedHandler();
 
-        private event OnOLAPStructureLoadedHandler OnOLAPStructureLoadedEvent;
+        public event OnOLAPStructureLoadedHandler OnOLAPStructureLoadedEvent;
 
         [Parameter]
         public OnOLAPStructureLoadedHandler OnOLAPStructureLoaded
         {
-            get
-            {
-                return OnOLAPStructureLoadedEvent;
-            }
             set
             {
                 if (OnOLAPStructureLoadedEvent == null)
@@ -848,8 +723,7 @@ namespace Flexmonster.Blazor
             }
         }
 
-        [JSInvokable]
-        public void OLAPStructureLoadedCallBack()
+        internal void InvokeOLAPStructureLoadedEvent()
         {
             OnOLAPStructureLoadedEvent?.Invoke();
         }
@@ -860,15 +734,11 @@ namespace Flexmonster.Blazor
 
         public delegate void OnOpeningReportFileHandler();
 
-        private event OnOpeningReportFileHandler OnOpeningReportFileEvent;
+        public event OnOpeningReportFileHandler OnOpeningReportFileEvent;
 
         [Parameter]
         public OnOpeningReportFileHandler OnOpeningReportFile
         {
-            get
-            {
-                return OnOpeningReportFileEvent;
-            }
             set
             {
                 if (OnOpeningReportFileEvent == null)
@@ -878,8 +748,7 @@ namespace Flexmonster.Blazor
             }
         }
 
-        [JSInvokable]
-        public void OpeningReportFileCallBack()
+        internal void InvokeOpeningReportFileEvent()
         {
             OnOpeningReportFileEvent?.Invoke();
         }
@@ -890,15 +759,11 @@ namespace Flexmonster.Blazor
 
         public delegate void OnPrintCompleteHandler();
 
-        private event OnPrintCompleteHandler OnPrintCompleteEvent;
+        public event OnPrintCompleteHandler OnPrintCompleteEvent;
 
         [Parameter]
         public OnPrintCompleteHandler OnPrintComplete
         {
-            get
-            {
-                return OnPrintCompleteEvent;
-            }
             set
             {
                 if (OnPrintCompleteEvent == null)
@@ -908,8 +773,7 @@ namespace Flexmonster.Blazor
             }
         }
 
-        [JSInvokable]
-        public void PrintCompleteCallBack()
+        internal void InvokePrintCompleteEvent()
         {
             OnPrintCompleteEvent?.Invoke();
         }
@@ -920,15 +784,11 @@ namespace Flexmonster.Blazor
 
         public delegate void OnPrintStartHandler();
 
-        private event OnPrintStartHandler OnPrintStartEvent;
+        public event OnPrintStartHandler OnPrintStartEvent;
 
         [Parameter]
         public OnPrintStartHandler OnPrintStart
         {
-            get
-            {
-                return OnPrintStartEvent;
-            }
             set
             {
                 if (OnPrintStartEvent == null)
@@ -938,8 +798,7 @@ namespace Flexmonster.Blazor
             }
         }
 
-        [JSInvokable]
-        public void PrintStartCallBack()
+        internal void InvokePrintStartEvent()
         {
             OnPrintStartEvent?.Invoke();
         }
@@ -950,15 +809,11 @@ namespace Flexmonster.Blazor
 
         public delegate void OnQueryCompleteHandler();
 
-        private event OnQueryCompleteHandler OnQueryCompleteEvent;
+        public event OnQueryCompleteHandler OnQueryCompleteEvent;
 
         [Parameter]
         public OnQueryCompleteHandler OnQueryComplete
         {
-            get
-            {
-                return OnQueryCompleteEvent;
-            }
             set
             {
                 if (OnQueryCompleteEvent == null)
@@ -968,8 +823,7 @@ namespace Flexmonster.Blazor
             }
         }
 
-        [JSInvokable]
-        public void QueryCompleteCallBack()
+        internal void InvokeQueryCompleteEvent()
         {
             OnQueryCompleteEvent?.Invoke();
         }
@@ -980,15 +834,11 @@ namespace Flexmonster.Blazor
 
         public delegate void OnQueryErrorHandler();
 
-        private event OnQueryErrorHandler OnQueryErrorEvent;
+        public event OnQueryErrorHandler OnQueryErrorEvent;
 
         [Parameter]
         public OnQueryErrorHandler OnQueryError
         {
-            get
-            {
-                return OnQueryErrorEvent;
-            }
             set
             {
                 if (OnQueryErrorEvent == null)
@@ -998,8 +848,7 @@ namespace Flexmonster.Blazor
             }
         }
 
-        [JSInvokable]
-        public void QueryErrorCallBack()
+        internal void InvokeQueryErrorEvent()
         {
             OnQueryErrorEvent?.Invoke();
         }
@@ -1010,15 +859,11 @@ namespace Flexmonster.Blazor
 
         public delegate void OnReadyHandler();
 
-        private event OnReadyHandler OnReadyEvent;
+        public event OnReadyHandler OnReadyEvent;
 
         [Parameter]
         public OnReadyHandler OnReady
         {
-            get
-            {
-                return OnReadyEvent;
-            }
             set
             {
                 if (OnReadyEvent == null)
@@ -1028,8 +873,7 @@ namespace Flexmonster.Blazor
             }
         }
 
-        [JSInvokable]
-        public void ReadyCallBack()
+        internal void InvokeReadyEvent()
         {
             OnReadyEvent?.Invoke();
         }
@@ -1040,15 +884,11 @@ namespace Flexmonster.Blazor
 
         public delegate void OnReportChangeHandler();
 
-        private event OnReportChangeHandler OnReportChangeEvent;
+        public event OnReportChangeHandler OnReportChangeEvent;
 
         [Parameter]
         public OnReportChangeHandler OnReportChange
         {
-            get
-            {
-                return OnReportChangeEvent;
-            }
             set
             {
                 if (OnReportChangeEvent == null)
@@ -1058,8 +898,7 @@ namespace Flexmonster.Blazor
             }
         }
 
-        [JSInvokable]
-        public void ReportChangeCallBack()
+        internal void InvokeReportChangeEvent()
         {
             OnReportChangeEvent?.Invoke();
         }
@@ -1070,15 +909,11 @@ namespace Flexmonster.Blazor
 
         public delegate void OnReportCompleteHandler();
 
-        private event OnReportCompleteHandler OnReportCompleteEvent;
+        public event OnReportCompleteHandler OnReportCompleteEvent;
 
         [Parameter]
         public OnReportCompleteHandler OnReportComplete
         {
-            get
-            {
-                return OnReportCompleteEvent;
-            }
             set
             {
                 if (OnReportCompleteEvent == null)
@@ -1088,8 +923,7 @@ namespace Flexmonster.Blazor
             }
         }
 
-        [JSInvokable]
-        public void ReportCompleteCallBack()
+        internal void InvokeReportCompleteEvent()
         {
             OnReportCompleteEvent?.Invoke();
         }
@@ -1100,15 +934,11 @@ namespace Flexmonster.Blazor
 
         public delegate void OnReportFileLoadedHandler();
 
-        private event OnReportFileLoadedHandler OnReportFileLoadedEvent;
+        public event OnReportFileLoadedHandler OnReportFileLoadedEvent;
 
         [Parameter]
         public OnReportFileLoadedHandler OnReportFileLoaded
         {
-            get
-            {
-                return OnReportFileLoadedEvent;
-            }
             set
             {
                 if (OnReportFileLoadedEvent == null)
@@ -1118,8 +948,7 @@ namespace Flexmonster.Blazor
             }
         }
 
-        [JSInvokable]
-        public void ReportFileLoadedCallBack()
+        internal void InvokeReportFileLoadedEvent()
         {
             OnReportFileLoadedEvent?.Invoke();
         }
@@ -1130,15 +959,11 @@ namespace Flexmonster.Blazor
 
         public delegate void OnReportFileCancelledHandler();
 
-        private event OnReportFileCancelledHandler OnReportFileCancelledEvent;
+        public event OnReportFileCancelledHandler OnReportFileCancelledEvent;
 
         [Parameter]
         public OnReportFileCancelledHandler OnReportFileCancelled
         {
-            get
-            {
-                return OnReportFileCancelledEvent;
-            }
             set
             {
                 if (OnReportFileCancelledEvent == null)
@@ -1148,8 +973,7 @@ namespace Flexmonster.Blazor
             }
         }
 
-        [JSInvokable]
-        public void ReportFileCancelledCallBack()
+        internal void InvokeReportFileCancelledEvent()
         {
             OnReportFileCancelledEvent?.Invoke();
         }
@@ -1160,15 +984,11 @@ namespace Flexmonster.Blazor
 
         public delegate void OnReportFileErrorHandler();
 
-        private event OnReportFileErrorHandler OnReportFileErrorEvent;
+        public event OnReportFileErrorHandler OnReportFileErrorEvent;
 
         [Parameter]
         public OnReportFileErrorHandler OnReportFileError
         {
-            get
-            {
-                return OnReportFileErrorEvent;
-            }
             set
             {
                 if (OnReportFileErrorEvent == null)
@@ -1178,8 +998,7 @@ namespace Flexmonster.Blazor
             }
         }
 
-        [JSInvokable]
-        public void ReportFileErrorCallBack()
+        internal void InvokeReportFileErrorEvent()
         {
             OnReportFileErrorEvent?.Invoke();
         }
@@ -1190,15 +1009,11 @@ namespace Flexmonster.Blazor
 
         public delegate void OnRunningQueryHandler();
 
-        private event OnRunningQueryHandler OnRunningQueryEvent;
+        public event OnRunningQueryHandler OnRunningQueryEvent;
 
         [Parameter]
         public OnRunningQueryHandler OnRunningQuery
         {
-            get
-            {
-                return OnRunningQueryEvent;
-            }
             set
             {
                 if (OnRunningQueryEvent == null)
@@ -1208,39 +1023,15 @@ namespace Flexmonster.Blazor
             }
         }
 
-        [JSInvokable]
-        public void RunningQueryCallBack()
+        internal void InvokeRunningQueryEvent()
         {
             OnRunningQueryEvent?.Invoke();
         }
 
         #endregion RunningQuery
 
-        #region CustomizeCell
-
-        public delegate void CustomizeCellFunctionHandler(CellBuilder builder, CellData cellData);
-
-        [Parameter]
-        public CustomizeCellFunctionHandler CustomizeCellFunction { get; set; }
-
-        [JSInvokable]
-        public void CustomizeCellFunctionCallBack(CellBuilder builder, CellData cellData)
-        {
-            CustomizeCellFunction?.Invoke(builder, cellData);
-        }
-
-        [JSInvokable]
-        public string[] GetAddClassResult()
-        {
-            var array = CellBuilder.ClassesToAdd.ToArray();
-            CellBuilder.ClassesToAdd = new System.Collections.Generic.List<string>();
-            return array;
-        }
-
-
-        #endregion CustomizeCell
-
         public object _pivot;
+
         protected override async Task OnAfterRenderAsync(bool firstRender)
         {
             if (firstRender)
@@ -1255,15 +1046,162 @@ namespace Flexmonster.Blazor
                     height = Height,
                     componentFolder = ComponentFolder,
                     report = Report,
-                    global = Global,
+                    global = Global
                 };
-                _pivot = await JsRuntime.InvokeAsync<object>("initFlexmonster",
-                                                   CreateDotNetObjectRef(this), flexmonsterParameters,id,pivotContainerReference).ConfigureAwait(false);
+                _pivot = await JsRuntime.InvokeAsync<object>("blazorflexmonster.initFlexmonster",
+                                                   CreateDotNetObjectRef(_flexmonsterBaseInternal), flexmonsterParameters, id).ConfigureAwait(false);
             }
             await base.OnAfterRenderAsync(firstRender);
         }
 
-        //add optional parameter GetReportOptions
+        public async Task AddCalculatedMeasure(Measure measure)
+        {
+            await JsRuntime.InvokeAsync<object>($"{id}.addCalculatedMeasure", measure);
+        }
+
+        public async Task AddCondition(ConditionalFormat conditionalFormat)
+        {
+            await JsRuntime.InvokeAsync<object>($"{id}.addCondition", conditionalFormat);
+        }
+
+        /* public async Task AddJSON<T>(T[] json)
+         {
+             await JsRuntime.InvokeAsync<object>($"{id}.addCondition", json);
+         }*/
+
+        //alert
+
+        public async Task Clear()
+        {
+            await JsRuntime.InvokeAsync<object>($"{id}.clear");
+        }
+
+        public async Task ClearFilter(string hierarchyName)
+        {
+            await JsRuntime.InvokeAsync<object>($"{id}.clearFilter", hierarchyName);
+        }
+
+        //clear XMLA
+
+        public async Task CloseFieldsList()
+        {
+            await JsRuntime.InvokeAsync<object>($"{id}.closeFieldsList");
+        }
+
+        public async Task CollapseAllData()
+        {
+            await JsRuntime.InvokeAsync<object>($"{id}.collapseAllData");
+        }
+
+        public async Task CollapseData(string hierarchyName)
+        {
+            await JsRuntime.InvokeAsync<object>($"{id}.collapseData", hierarchyName);
+        }
+
+        public async Task ConnectTo(DataSource dataSource)
+        {
+            await JsRuntime.InvokeAsync<object>($"{id}.connectTo", dataSource);
+        }
+
+        //3 customize requests
+
+        public async Task Dispose()
+        {
+            await JsRuntime.InvokeAsync<object>($"{id}.dispose");
+        }
+
+        public async Task ExpandAllData(bool withAllChildren = true)
+        {
+            await JsRuntime.InvokeAsync<object>($"{id}.expandAllData", withAllChildren);
+        }
+
+        public async Task ExpandData(string hierarchyName)
+        {
+            await JsRuntime.InvokeAsync<object>($"{id}.expandData", hierarchyName);
+        }
+
+        public delegate void ExportToHandler(ExportToResult result, ExportToError error);
+
+        public async Task ExportTo(string type, ExportOptions exportOptions = null, ExportToHandler handler = null)
+        {
+            _exportToHandler = handler;
+            await JsRuntime.InvokeAsync<object>($"blazorflexmonster.exportToApiCall", id, CreateDotNetObjectRef(_flexmonsterBaseInternal), type, exportOptions);
+        }
+
+        internal ExportToHandler _exportToHandler;
+
+        internal void InvokeExportToHandler(ExportToResult result, ExportToError error)
+        {
+            _exportToHandler?.Invoke(result, error);
+        }
+
+        public async Task<ConditionalFormat[]> GetAllConditions()
+        {
+            return await JsRuntime.InvokeAsync<ConditionalFormat[]>($"{id}.getAllConditions");
+        }
+
+        public async Task<Hierarchy[]> GetAllHierarchies()
+        {
+            return await JsRuntime.InvokeAsync<Hierarchy[]>($"{id}.getAllHierarchies");
+        }
+
+        public async Task<Measure[]> GetAllMeasures()
+        {
+            return await JsRuntime.InvokeAsync<Measure[]>($"{id}.getAllMeasures");
+        }
+
+        public async Task<CellData> GetCell(int rowIdx, int colIdx)
+        {
+            return await JsRuntime.InvokeAsync<CellData>($"{id}.getCell", rowIdx, colIdx);
+        }
+
+        public async Task<Hierarchy[]> GetColumns()
+        {
+            return await JsRuntime.InvokeAsync<Hierarchy[]>($"{id}.getColumns");
+        }
+
+        public async Task<ConditionalFormat> GetCondition(string id)
+        {
+            return await JsRuntime.InvokeAsync<ConditionalFormat>($"{this.id}.getCondition", id);
+        }
+
+        //getData
+
+        public async Task<Filter> GetFilter(string hierarchyName)
+        {
+            return await JsRuntime.InvokeAsync<Filter>($"{id}.setFilter", hierarchyName);
+        }
+
+        public async Task<Format> GetFormat(string measureName)
+        {
+            return await JsRuntime.InvokeAsync<Format>($"{id}.getFormat", measureName);
+        }
+
+        public async Task<Measure[]> GetMeasures()
+        {
+            return await JsRuntime.InvokeAsync<Measure[]>($"{id}.getMeasures");
+        }
+
+        public delegate void GetMembersHandler(Member[] members);
+
+        public async Task GetMembers(string hierarchyName, string memberName = null, GetMembersHandler handler = null)
+        {
+            _getMembersHandler = handler;
+            await JsRuntime.InvokeAsync<object>($"blazorflexmonster.getMembersApiCall", id, CreateDotNetObjectRef(_flexmonsterBaseInternal), hierarchyName, memberName);
+        }
+
+        internal GetMembersHandler _getMembersHandler;
+
+        internal void InvokeGetMembersHandler(Member[] members)
+        {
+            _getMembersHandler?.Invoke(members);
+        }
+
+        public async Task<Options> GetOptions()
+        {
+            return await JsRuntime.InvokeAsync<Options>($"{id}.getOptions");
+        }
+
         public async Task<Report> GetReport(GetReportOptions getReportOptions = null)
         {
             Report report;
@@ -1275,29 +1213,230 @@ namespace Flexmonster.Blazor
             {
                 report = await JsRuntime.InvokeAsync<Report>($"{id}.getReport", getReportOptions);
             }
-#if DEBUG
-            Console.WriteLine(JsonSerializer.Serialize(report));
-#endif
             return report;
+        }
+
+        public async Task<Hierarchy[]> GetReportFilters()
+        {
+            return await JsRuntime.InvokeAsync<Hierarchy[]>($"{id}.getReportFilters");
+        }
+
+        public async Task<Hierarchy[]> GetRows()
+        {
+            return await JsRuntime.InvokeAsync<Hierarchy[]>($"{id}.getRows");
+        }
+
+        public async Task<CellData[]> GetSelectedCell()
+        {
+            var cellData = await JsRuntime.InvokeAsync<JsonElement>($"{id}.getSelectedCell");
+            if (cellData.ValueKind == JsonValueKind.Object)
+            {
+                var rawCellData = cellData.GetRawText();
+                var obj = JsonSerializer.Deserialize<CellData>(rawCellData);
+                return new CellData[] { obj };
+            }
+            else if (cellData.ValueKind == JsonValueKind.Array)
+            {
+                var rawCellData = cellData.GetRawText();
+                return JsonSerializer.Deserialize<CellData[]>(rawCellData);
+            }
+            return null;
+        }
+
+        public async Task<string> GetSort(string hierarchyName)
+        {
+            return await JsRuntime.InvokeAsync<string>($"{id}.getSort", hierarchyName);
+        }
+
+        public async Task<FlatSort[]> GetFlatSort()
+        {
+            return await JsRuntime.InvokeAsync<FlatSort[]>($"{id}.getFlatSort");
+        }
+
+        public async Task<TableSizes> GetTableSizes()
+        {
+            return await JsRuntime.InvokeAsync<TableSizes>($"{id}.getTableSizes");
+        }
+
+        public async Task Load(string url, Dictionary<string, string> requestHeaders = null)
+        {
+            if (requestHeaders != null)
+            {
+                await JsRuntime.InvokeAsync<object>($"{id}.load", url, requestHeaders);
+            }
+            else
+            {
+                await JsRuntime.InvokeAsync<object>($"{id}.load", url);
+            }
+        }
+
+        public async Task Open()
+        {
+            await JsRuntime.InvokeAsync<object>($"{id}.open");
+        }
+
+        public delegate void OpenCalculatedValueEditorHandler(OpenCalculatedValueEditorResult result);
+
+        public async Task OpenCalculatedValueEditor(string uniqueName = null, OpenCalculatedValueEditorHandler handler = null)
+        {
+            _openCalculatedValueEditorHandler = handler;
+            await JsRuntime.InvokeAsync<object>($"blazorflexmonster.openCalculatedValueEditorApiCall", id, CreateDotNetObjectRef(_flexmonsterBaseInternal), uniqueName, handler);
+        }
+
+        internal OpenCalculatedValueEditorHandler _openCalculatedValueEditorHandler;
+
+        internal void InvokeOpenCalculatedValueEditorHandler(OpenCalculatedValueEditorResult result)
+        {
+            _openCalculatedValueEditorHandler?.Invoke(result);
+        }
+
+        public async Task OpenFieldsList()
+        {
+            await JsRuntime.InvokeAsync<object>($"{id}.openFieldsList");
+        }
+
+        public async Task OpenFilter(string hierarchyName)
+        {
+            await JsRuntime.InvokeAsync<object>($"{id}.openFilter", hierarchyName);
+        }
+
+        public async Task Print(PrintOptions printOptions)
+        {
+            await JsRuntime.InvokeAsync<object>($"{id}.print", printOptions);
+        }
+
+        public async Task Refresh()
+        {
+            await JsRuntime.InvokeAsync<object>($"{id}.refresh");
+        }
+
+        public async Task RemoveAllCalculatedMeasures()
+        {
+            await JsRuntime.InvokeAsync<object>($"{id}.removeAllCalculatedMeasures");
+        }
+
+        public async Task RemoveAllConditions()
+        {
+            await JsRuntime.InvokeAsync<object>($"{id}.removeAllConditions");
+        }
+
+        public async Task RemoveCalculatedMeasure(string uniqueName)
+        {
+            await JsRuntime.InvokeAsync<object>($"{id}.removeCalculatedMeasure", uniqueName);
+        }
+
+        public async Task RemoveCondition(string id)
+        {
+            await JsRuntime.InvokeAsync<object>($"{id}.removeCondition", id);
+        }
+
+        public async Task RemoveSelection()
+        {
+            await JsRuntime.InvokeAsync<object>($"{id}.removeSelection");
+        }
+
+        public async Task RunQuery(Slice slice)
+        {
+            await JsRuntime.InvokeAsync<object>($"{id}.runQuery", slice);
+        }
+
+        public async Task Save(SaveParams saveParams)
+        {
+            _saveHandler = saveParams.SaveCallback;
+            await JsRuntime.InvokeAsync<object>($"blazorflexmonster.saveApiCall", id, CreateDotNetObjectRef(_flexmonsterBaseInternal), saveParams);
+        }
+
+        private SaveParams.SaveHandler _saveHandler;
+
+        internal void InvokeSaveHandler(SaveResult result, SaveError error)
+        {
+            _saveHandler?.Invoke(result, error);
+        }
+
+        public async Task ScrollToRow(int rowIndex)
+        {
+            await JsRuntime.InvokeAsync<object>($"{id}.scrollToRow", rowIndex);
+        }
+
+        public async Task ScrollToColumn(int columnIndex)
+        {
+            await JsRuntime.InvokeAsync<object>($"{id}.scrollToColumn", columnIndex);
+        }
+
+        public async Task SetFilter(string hierarchyName, Filter filter)
+        {
+            var withoutNulls = RemoveNulls(filter);
+            await JsRuntime.InvokeAsync<object>($"{id}.setFilter", hierarchyName, withoutNulls);
+        }
+
+        public async Task SetFormat(Format format, string measureName = null)
+        {
+            var withoutNulls = RemoveNulls(format);
+            if (measureName != null)
+            {
+                await JsRuntime.InvokeAsync<object>($"{id}.setFormat", withoutNulls, measureName);
+            }
+            else
+            {
+                await JsRuntime.InvokeAsync<object>($"{id}.setFormat", withoutNulls);
+            }
+        }
+
+        public async Task SetOptions(Options options)
+        {
+            var withoutNulls = RemoveNulls(options);
+            await JsRuntime.InvokeAsync<object>($"{id}.setOptions", withoutNulls);
         }
 
         public async Task SetReport(Report report)
         {
             var withoutNulls = RemoveNulls(report);
-#if DEBUG
-            Console.WriteLine(JsonSerializer.Serialize(withoutNulls));
-#endif
             await JsRuntime.InvokeAsync<object>($"{id}.setReport", withoutNulls);
-           // await JsRuntime.InvokeAsync<object>("invokeApiCall", pivotContainerReference , "setReport", withoutNulls);
-            
         }
 
-        public async Task CustomizeCell(CustomizeCellFunctionHandler customizeCellFunction)
+        public async Task SetSort(string hierarchyName, string sortName)
         {
-            CustomizeCellFunction = customizeCellFunction;
+            await JsRuntime.InvokeAsync<object>($"{id}.setSort", hierarchyName, sortName);
+        }
 
-            await JsRuntime.InvokeAsync<object>($"customizeCellWrapper", CreateDotNetObjectRef(this), id);
+        public async Task SetFlatSort(FlatSort[] flatSort)
+        {
+            await JsRuntime.InvokeAsync<object>($"{id}.setFlatSort", flatSort);
+        }
 
+        public async Task SetTableSizes(TableSizes tableSizes)
+        {
+            var withoutNulls = RemoveNulls(tableSizes);
+            await JsRuntime.InvokeAsync<object>($"{id}.setTableSizes", withoutNulls);
+        }
+
+        //specified default values, so if changed in fm need to be changed here
+        public async Task ShowCharts(string type = "column", bool multiple = false)
+        {
+            await JsRuntime.InvokeAsync<object>($"{id}.showCharts", type, multiple);
+        }
+
+        public async Task ShowGrid()
+        {
+            await JsRuntime.InvokeAsync<object>($"{id}.showGrid");
+        }
+
+        //specified default values, so if changed in fm need to be changed here
+        public async Task ShowGridAndCharts(string type = "column", string position = "bottom", bool multiple = false)
+        {
+            await JsRuntime.InvokeAsync<object>($"{id}.showGridAndCharts", type, position, multiple);
+        }
+
+        public async Task SortValues(string axisName, string type, string[] tuple, MeasureObject measure)
+        {
+            await JsRuntime.InvokeAsync<object>($"{id}.sortValues", type, axisName, tuple, measure);
+        }
+
+        public async Task UpdateData(DataSource connectionParameters, UpdateDataParams updateDataParams)
+        {
+            var connectionParametersWithoutNulls = RemoveNulls(connectionParameters);
+            var updateDataParamsWithoutNulls = RemoveNulls(updateDataParams);
+            await JsRuntime.InvokeAsync<object>($"{id}.updateData", connectionParametersWithoutNulls, updateDataParamsWithoutNulls);
         }
 
         private object RemoveNulls(object obj)
@@ -1315,16 +1454,5 @@ namespace Flexmonster.Blazor
                 return DotNetObjectReference.Create(value);
             }
         }
-
-        /*  private void DisposeDotNetObjectRef<T>(DotNetObjectReference<T> value) where T : class
-          {
-              if (value != null)
-              {
-                  lock (CreateDotNetObjectRefSyncObj)
-                  {
-                      value.Dispose();
-                  }
-              }
-          }*/
     }
 }

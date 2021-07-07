@@ -6,5 +6,6 @@ namespace Flexmonster.Blazor
     {
         [JsonPropertyName("hierarchy")]
         public Hierarchy Hierarchy { get; set; }
+
     }
 }

@@ -7,7 +7,6 @@ namespace Flexmonster.Blazor
         [JsonPropertyName("caption")]
         public string Caption { get; set; }
 
-        //can be enum
         [JsonPropertyName("type")]
         public string Type { get; set; }
 
@@ -20,7 +19,6 @@ namespace Flexmonster.Blazor
         [JsonPropertyName("folder")]
         public string Folder { get; set; }
 
-        //can be enum(?)
         [JsonPropertyName("aggregations")]
         public string[] Aggregations { get; set; }
 

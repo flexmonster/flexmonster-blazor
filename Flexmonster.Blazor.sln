@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30717.126
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Flexmonster.Blazor", "Flexmonster.Blazor\Flexmonster.Blazor.csproj", "{BF72AAFA-CF59-4AC3-8993-E883AC2F48B9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Flexmonster.Blazor", "Flexmonster.Blazor\Flexmonster.Blazor.csproj", "{760598C1-3762-4BD1-8139-5F48A7154B04}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -11,10 +11,10 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{BF72AAFA-CF59-4AC3-8993-E883AC2F48B9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{BF72AAFA-CF59-4AC3-8993-E883AC2F48B9}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{BF72AAFA-CF59-4AC3-8993-E883AC2F48B9}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{BF72AAFA-CF59-4AC3-8993-E883AC2F48B9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{760598C1-3762-4BD1-8139-5F48A7154B04}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{760598C1-3762-4BD1-8139-5F48A7154B04}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{760598C1-3762-4BD1-8139-5F48A7154B04}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{760598C1-3762-4BD1-8139-5F48A7154B04}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
