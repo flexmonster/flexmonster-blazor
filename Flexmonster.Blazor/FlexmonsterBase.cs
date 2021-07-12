@@ -33,7 +33,13 @@ namespace Flexmonster.Blazor
         public string ComponentFolder { get; set; } = "https://cdn.flexmonster.com/";
 
         [Parameter]
-        public Report Report { get; set; }
+        public AccessibilityOptions Accessibility { get; set; }
+        
+        [Parameter]
+        public APIClientOptions ShareReportConnection { get; set; }
+
+        [Parameter]
+        public object Report { get; set; }
 
         [Parameter]
         public Report Global { get; set; }
@@ -1039,17 +1045,20 @@ namespace Flexmonster.Blazor
                 var flexmonsterParameters = new
                 {
                     container = $"#{id}",
+                    accessibility = Accessibility,
                     toolbar = Toolbar,
                     licenseKey = LicenseKey,
                     licenseFilePath = LicenseFilePath,
                     width = Width,
                     height = Height,
                     componentFolder = ComponentFolder,
+                    shareReportConnection = ShareReportConnection,
                     report = Report,
                     global = Global
                 };
+                var flexmonsterParametersWithoutNulls = RemoveNulls(flexmonsterParameters);
                 _pivot = await JsRuntime.InvokeAsync<object>("blazorflexmonster.initFlexmonster",
-                                                   CreateDotNetObjectRef(_flexmonsterBaseInternal), flexmonsterParameters, id).ConfigureAwait(false);
+                                                   CreateDotNetObjectRef(_flexmonsterBaseInternal), flexmonsterParametersWithoutNulls, id).ConfigureAwait(false);
             }
             await base.OnAfterRenderAsync(firstRender);
         }
@@ -1408,6 +1417,11 @@ namespace Flexmonster.Blazor
         {
             var withoutNulls = RemoveNulls(tableSizes);
             await JsRuntime.InvokeAsync<object>($"{id}.setTableSizes", withoutNulls);
+        }
+
+        public async Task ShareReport(APIClientOptions options)
+        {
+            await JsRuntime.InvokeAsync<object>($"{id}.shareReport", options);
         }
 
         //specified default values, so if changed in fm need to be changed here
