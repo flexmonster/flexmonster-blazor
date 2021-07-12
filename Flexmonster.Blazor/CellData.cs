@@ -89,9 +89,9 @@ namespace Flexmonster.Blazor
         public int? Width { get; set; }
 
         [JsonPropertyName("x")]
-        public int? X { get; set; }
+        public double? X { get; set; }
 
         [JsonPropertyName("y")]
-        public int? Y { get; set; }
+        public double? Y { get; set; }
     }
 }
