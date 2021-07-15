@@ -163,6 +163,10 @@ window.blazorflexmonster.initFlexmonster = (instance, flexmonsterParams, id) => 
 		instance.invokeMethodAsync("RunningQueryCallBack");
 	});
 
+	pivot.on('update', function () {
+		instance.invokeMethodAsync("UpdateCallBack");
+	});
+
 	window[id] = pivot;
 }
 window.blazorflexmonster.exportToApiCall = (id, instance, type, params) => {

@@ -34,7 +34,7 @@ namespace Flexmonster.Blazor
 
         [Parameter]
         public AccessibilityOptions Accessibility { get; set; }
-        
+
         [Parameter]
         public APIClientOptions ShareReportConnection { get; set; }
 
@@ -59,7 +59,7 @@ namespace Flexmonster.Blazor
 
         public delegate void OnAfterChartDrawHandler();
 
-        private event OnAfterChartDrawHandler OnAfterChartDrawEvent;
+        public event OnAfterChartDrawHandler OnAfterChartDrawEvent;
 
         [Parameter]
         public OnAfterChartDrawHandler OnAfterChartDraw
@@ -1036,6 +1036,31 @@ namespace Flexmonster.Blazor
 
         #endregion RunningQuery
 
+        #region Update
+
+        public delegate void OnUpdateHandler();
+
+        public event OnUpdateHandler OnUpdateEvent;
+
+        [Parameter]
+        public OnUpdateHandler OnUpdate
+        {
+            set
+            {
+                if (OnUpdateEvent == null)
+                {
+                    OnUpdateEvent += value;
+                }
+            }
+        }
+
+        internal void InvokeUpdateEvent()
+        {
+            OnUpdateEvent?.Invoke();
+        }
+
+        #endregion Update
+
         public object _pivot;
 
         protected override async Task OnAfterRenderAsync(bool firstRender)
@@ -1220,7 +1245,8 @@ namespace Flexmonster.Blazor
             }
             else
             {
-                report = await JsRuntime.InvokeAsync<Report>($"{id}.getReport", getReportOptions);
+                var withoutNulls = RemoveNulls(getReportOptions);
+                report = await JsRuntime.InvokeAsync<Report>($"{id}.getReport", withoutNulls);
             }
             return report;
         }
@@ -1311,7 +1337,8 @@ namespace Flexmonster.Blazor
 
         public async Task Print(PrintOptions printOptions)
         {
-            await JsRuntime.InvokeAsync<object>($"{id}.print", printOptions);
+            var withoutNulls = RemoveNulls(printOptions);
+            await JsRuntime.InvokeAsync<object>($"{id}.print", withoutNulls);
         }
 
         public async Task Refresh()
@@ -1446,11 +1473,18 @@ namespace Flexmonster.Blazor
             await JsRuntime.InvokeAsync<object>($"{id}.sortValues", type, axisName, tuple, measure);
         }
 
-        public async Task UpdateData(DataSource connectionParameters, UpdateDataParams updateDataParams)
+        public async Task UpdateData(DataSource connectionParameters, UpdateDataParams updateDataParams = null)
         {
             var connectionParametersWithoutNulls = RemoveNulls(connectionParameters);
-            var updateDataParamsWithoutNulls = RemoveNulls(updateDataParams);
-            await JsRuntime.InvokeAsync<object>($"{id}.updateData", connectionParametersWithoutNulls, updateDataParamsWithoutNulls);
+            if (updateDataParams != null)
+            {
+                var updateDataParamsWithoutNulls = RemoveNulls(updateDataParams);
+                await JsRuntime.InvokeAsync<object>($"{id}.updateData", connectionParametersWithoutNulls, updateDataParamsWithoutNulls);
+            }
+            else
+            {
+                await JsRuntime.InvokeAsync<object>($"{id}.updateData", connectionParametersWithoutNulls);
+            }
         }
 
         private object RemoveNulls(object obj)

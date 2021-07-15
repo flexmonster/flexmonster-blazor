@@ -401,6 +401,16 @@ namespace Flexmonster.Blazor
 
         #endregion RunningQuery
 
+        #region Update
+
+        [JSInvokable]
+        public void UpdateCallBack()
+        {
+            _flexmonsterBase.InvokeUpdateEvent();
+        }
+
+        #endregion Update
+
         [JSInvokable]
         public void ExportToCallBack(ExportToResult result, ExportToError error)
         {
