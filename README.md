@@ -1,3 +1,27 @@
-# flexmonster-blazor
+# Blazor Module for Flexmonster Pivot Table & Charts
+[![Flexmonster Pivot Table & Charts](https://cdn.flexmonster.com/landing.png)](https://flexmonster.com)
+Website: www.flexmonster.com
 
-Post task for docs
+## Flexmonster Pivot Table & Charts
+
+Flexmonster Pivot is a powerful JavaScript tool for interactive web reporting. It allows you to visualize and analyze data from JSON, CSV, SQL, NoSQL, Elasticsearch, and OLAP data sources quickly and conveniently. Flexmonster is designed to integrate seamlessly with any client-side framework and can be easily embedded into your application.
+
+This repository holds the source code for using [Flexmonster Pivot](https://www.flexmonster.com/) in [Blazor](https://dotnet.microsoft.com/apps/aspnet/web-apps/blazor) applications.
+
+## <a name="usage"></a>Usage ##
+
+Refer to the [Flexmonster Integration with Blazor](https://www.flexmonster.com/doc/integration-with-blazor/) tutorial for details on how to use the Flexmonster Blazor module.
+
+## <a name="sample-project"></a>Sample Project ##
+
+See our [sample Blazor project that uses the Flexmonster Blazor module](https://github.com/flexmonster/pivot-blazor).
+
+## <a name="license"></a>License ##
+
+Here is [Flexmonster licensing page](https://www.flexmonster.com/pivot-table-editions-and-pricing/). We have a free 30-day trial! 
+
+The Flexmonster Blazor module is released as an MIT-licensed add-on to Flexmonster Pivot.
+
+## <a name="support-feedback"></a>Support & feedback ##
+
+Please share your feedback or ask questions via [Flexmonster Forum](https://www.flexmonster.com/forum/).
