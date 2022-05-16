@@ -1,5 +1,5 @@
 ﻿var script = document.createElement("script");
-script.src = "./flexmonster/flexmonster.js";
+script.src = "_content/Flexmonster.Blazor/flexmonster/flexmonster.full.js";
 document.head.appendChild(script);
 
 window.blazorflexmonster = {};
