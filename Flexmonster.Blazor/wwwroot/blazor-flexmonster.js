@@ -1,4 +1,9 @@
-﻿var script = document.createElement("script");
+﻿var link = document.createElement("link");
+link.rel = "stylesheet"
+link.href = "_content/Flexmonster.Blazor/flexmonster/flexmonster.min.css";
+document.head.appendChild(link);
+
+var script = document.createElement("script");
 script.src = "_content/Flexmonster.Blazor/flexmonster/flexmonster.full.js";
 document.head.appendChild(script);
 

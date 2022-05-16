@@ -30,7 +30,7 @@ namespace Flexmonster.Blazor
         public string Height { get; set; }
 
         [Parameter]
-        public string ComponentFolder { get; set; } = "https://cdn.flexmonster.com/";
+        public string ComponentFolder { get; set; }
 
         [Parameter]
         public AccessibilityOptions Accessibility { get; set; }
