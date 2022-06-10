@@ -49,10 +49,12 @@ function declareFlexmonster(instance, flexmonsterParams, id) {
     });
 
     pivot.on('cellclick', function (cell) {
+        removeStringFromCell(cell);
         instance.invokeMethodAsync("CellClickCallBack", cell);
     });
 
     pivot.on('celldoubleclick', function (cell) {
+        removeStringFromCell(cell);
         instance.invokeMethodAsync("CellDoubleClickCallBack", cell);
     });
 
@@ -81,6 +83,7 @@ function declareFlexmonster(instance, flexmonsterParams, id) {
     });
 
     pivot.on('drillthroughopen', function (cell) {
+        removeStringFromCell(cell);
         if (cell.element !== undefined) {
             instance.invokeMethodAsync("DrillthroughOpenChartCallBack", cell);
         } else {
@@ -197,6 +200,12 @@ function declareFlexmonster(instance, flexmonsterParams, id) {
     });
 
     window[id] = pivot;
+}
+
+function removeStringFromCell(cell) {
+    if (typeof cell.value === 'string') {
+        cell.value = NaN;
+    }
 }
 
 window.blazorflexmonster.getMembersApiCall = (id, instance, hierarchyName, memberName) => {
