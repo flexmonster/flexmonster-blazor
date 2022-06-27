@@ -57,12 +57,10 @@ namespace Flexmonster.Blazor
 
         #region AfterChartDraw
 
-        public delegate void OnAfterChartDrawHandler();
-
-        public event OnAfterChartDrawHandler OnAfterChartDrawEvent;
+        public event Func<Task> OnAfterChartDrawEvent;
 
         [Parameter]
-        public OnAfterChartDrawHandler OnAfterChartDraw
+        public Func<Task> OnAfterChartDraw
         {
             set
             {
@@ -73,21 +71,22 @@ namespace Flexmonster.Blazor
             }
         }
 
-        internal void InvokeAfterChartDrawEvent()
+        internal async Task InvokeAfterChartDrawEvent()
         {
-            OnAfterChartDrawEvent?.Invoke();
+            if (OnAfterChartDrawEvent != null)
+            {
+                await OnAfterChartDrawEvent.Invoke();
+            }
         }
 
         #endregion AfterChartDraw
 
         #region AfterGridDraw
 
-        public delegate void OnAfterGridDrawHandler(GridDrawParams gridDrawParams);
-
-        public event OnAfterGridDrawHandler OnAfterGridDrawEvent;
+        public event Func<GridDrawParams, Task> OnAfterGridDrawEvent;
 
         [Parameter]
-        public OnAfterGridDrawHandler OnAfterGridDraw
+        public Func<GridDrawParams, Task> OnAfterGridDraw
         {
             set
             {
@@ -98,21 +97,22 @@ namespace Flexmonster.Blazor
             }
         }
 
-        internal void InvokeAfterGridDrawEvent(GridDrawParams gridDrawParams)
+        internal async Task InvokeAfterGridDrawEvent(GridDrawParams gridDrawParams)
         {
-            OnAfterGridDrawEvent?.Invoke(gridDrawParams);
+            if (OnAfterGridDrawEvent != null)
+            {
+                await OnAfterGridDrawEvent.Invoke(gridDrawParams);
+            }
         }
 
         #endregion AfterGridDraw
 
         #region BeforeGridDraw
 
-        public delegate void OnBeforeGridDrawHandler(GridDrawParams gridDrawParams);
-
-        public event OnBeforeGridDrawHandler OnBeforeGridDrawEvent;
+        public event Func<GridDrawParams, Task> OnBeforeGridDrawEvent;
 
         [Parameter]
-        public OnBeforeGridDrawHandler OnBeforeGridDraw
+        public Func<GridDrawParams, Task> OnBeforeGridDraw
         {
             set
             {
@@ -123,9 +123,12 @@ namespace Flexmonster.Blazor
             }
         }
 
-        internal void InvokeBeforeGridDrawEvent(GridDrawParams gridDrawParams)
+        internal async Task InvokeBeforeGridDrawEvent(GridDrawParams gridDrawParams)
         {
-            OnBeforeGridDrawEvent?.Invoke(gridDrawParams);
+            if (OnBeforeGridDrawEvent != null)
+            {
+                await OnBeforeGridDrawEvent.Invoke(gridDrawParams);
+            }
         }
 
         #endregion BeforeGridDraw
@@ -134,12 +137,10 @@ namespace Flexmonster.Blazor
 
         #region BeforeToolbarCreated
 
-        public delegate void OnBeforeToolbarCreatedHandler(object toolbar);
-
-        public event OnBeforeToolbarCreatedHandler OnBeforeToolbarCreatedEvent;
+        public event Func<object, Task> OnBeforeToolbarCreatedEvent;
 
         [Parameter]
-        public OnBeforeToolbarCreatedHandler OnBeforeToolbarCreated
+        public Func<object, Task> OnBeforeToolbarCreated
         {
             set
             {
@@ -150,21 +151,22 @@ namespace Flexmonster.Blazor
             }
         }
 
-        internal void InvokeBeforeToolbarCreatedEvent(object toolbar)
+        internal async Task InvokeBeforeToolbarCreatedEvent(object toolbar)
         {
-            OnBeforeToolbarCreatedEvent?.Invoke(toolbar);
+            if(OnBeforeToolbarCreatedEvent != null)
+            {
+                await OnBeforeToolbarCreatedEvent.Invoke(toolbar);
+            }
         }
 
         #endregion BeforeToolbarCreated
 
         #region CellClick
 
-        public delegate void OnCellClickHandler(CellData cellData);
-
-        public event OnCellClickHandler OnCellClickEvent;
+        public event Func<CellData, Task> OnCellClickEvent;
 
         [Parameter]
-        public OnCellClickHandler OnCellClick
+        public Func<CellData, Task> OnCellClick
         {
             set
             {
@@ -175,9 +177,12 @@ namespace Flexmonster.Blazor
             }
         }
 
-        internal void InvokeCellClickEvent(CellData cellData)
+        internal async Task InvokeCellClickEvent(CellData cellData)
         {
-            OnCellClickEvent?.Invoke(cellData);
+            if(OnCellClickEvent != null)
+            {
+                await OnCellClickEvent.Invoke(cellData);
+            }
         }
 
         #endregion CellClick
@@ -186,10 +191,10 @@ namespace Flexmonster.Blazor
 
         public delegate void OnCellDoubleClickHandler(CellData cellData);
 
-        public event OnCellDoubleClickHandler OnCellDoubleClickEvent;
+        public event Func<CellData, Task> OnCellDoubleClickEvent;
 
         [Parameter]
-        public OnCellDoubleClickHandler OnCellDoubleClick
+        public Func<CellData, Task> OnCellDoubleClick
         {
             set
             {
@@ -200,21 +205,22 @@ namespace Flexmonster.Blazor
             }
         }
 
-        internal void InvokeCellDoubleClickEvent(CellData cellData)
+        internal async Task InvokeCellDoubleClickEvent(CellData cellData)
         {
-            OnCellDoubleClickEvent?.Invoke(cellData);
+            if(OnCellDoubleClickEvent != null)
+            { 
+                await OnCellDoubleClickEvent.Invoke(cellData);
+            }
         }
 
         #endregion CellDoubleClick
 
         #region ChartClick
 
-        public delegate void OnChartClickHandler(ChartData chartData);
-
-        public event OnChartClickHandler OnChartClickEvent;
+        public event Func<ChartData, Task> OnChartClickEvent;
 
         [Parameter]
-        public OnChartClickHandler OnChartClick
+        public Func<ChartData, Task> OnChartClick
         {
             set
             {
@@ -225,9 +231,12 @@ namespace Flexmonster.Blazor
             }
         }
 
-        internal void InvokeChartClickEvent(ChartData chartData)
+        internal async Task InvokeChartClickEvent(ChartData chartData)
         {
-            OnChartClickEvent?.Invoke(chartData);
+            if(OnChartClickEvent != null) 
+            {
+                await OnChartClickEvent.Invoke(chartData);
+            }
         }
 
         #endregion ChartClick
@@ -236,12 +245,10 @@ namespace Flexmonster.Blazor
 
         #region DataChanged
 
-        public delegate void OnDataChangedHandler(DataChangedParams dataChangedParams);
-
-        public event OnDataChangedHandler OnDataChangedEvent;
+        public event Func<DataChangedParams, Task> OnDataChangedEvent;
 
         [Parameter]
-        public OnDataChangedHandler OnDataChanged
+        public Func<DataChangedParams, Task> OnDataChanged
         {
             set
             {
@@ -252,21 +259,22 @@ namespace Flexmonster.Blazor
             }
         }
 
-        internal void InvokeDataChangedEvent(DataChangedParams dataChangedParams)
+        internal async Task InvokeDataChangedEvent(DataChangedParams dataChangedParams)
         {
-            OnDataChangedEvent?.Invoke(dataChangedParams);
+            if(OnDataChangedEvent != null)
+            {
+                await OnDataChangedEvent.Invoke(dataChangedParams);
+            }
         }
 
         #endregion DataChanged
 
         #region DataError
 
-        public delegate void OnDataErrorHandler(DataErrorParams dataErrorParams);
-
-        public event OnDataErrorHandler OnDataErrorEvent;
+        public event Func<DataErrorParams, Task> OnDataErrorEvent;
 
         [Parameter]
-        public OnDataErrorHandler OnDataError
+        public Func<DataErrorParams, Task> OnDataError
         {
             set
             {
@@ -277,21 +285,22 @@ namespace Flexmonster.Blazor
             }
         }
 
-        internal void InvokeDataErrorEvent(DataErrorParams dataErrorParams)
+        internal async Task InvokeDataErrorEvent(DataErrorParams dataErrorParams)
         {
-            OnDataErrorEvent?.Invoke(dataErrorParams);
+            if (OnDataErrorEvent != null)
+            {
+                await OnDataErrorEvent.Invoke(dataErrorParams);
+            }
         }
 
         #endregion DataError
 
         #region DataFileCancelled
 
-        public delegate void OnDataFileCancelledHandler();
-
-        public event OnDataFileCancelledHandler OnDataFileCancelledEvent;
+        public event Func<Task> OnDataFileCancelledEvent;
 
         [Parameter]
-        public OnDataFileCancelledHandler OnDataFileCancelled
+        public Func<Task> OnDataFileCancelled
         {
             set
             {
@@ -302,21 +311,22 @@ namespace Flexmonster.Blazor
             }
         }
 
-        internal void InvokeDataFileCancelledEvent()
+        internal async Task InvokeDataFileCancelledEvent()
         {
-            OnDataFileCancelledEvent?.Invoke();
+            if (OnDataFileCancelledEvent != null)
+            {
+                await OnDataFileCancelledEvent.Invoke();
+            }
         }
 
         #endregion DataFileCancelled
 
         #region DataLoaded
 
-        public delegate void OnDataLoadedHandler();
-
-        public event OnDataLoadedHandler OnDataLoadedEvent;
+        public event Func<Task> OnDataLoadedEvent;
 
         [Parameter]
-        public OnDataLoadedHandler OnDataLoaded
+        public Func<Task> OnDataLoaded
         {
             set
             {
@@ -327,21 +337,22 @@ namespace Flexmonster.Blazor
             }
         }
 
-        internal void InvokeDataLoadedEvent()
+        internal async Task InvokeDataLoadedEvent()
         {
-            OnDataLoadedEvent?.Invoke();
+            if (OnDataLoadedEvent != null)
+            {
+                await OnDataLoadedEvent.Invoke();
+            }
         }
 
         #endregion DataLoaded
 
         #region DrillthroughClose
 
-        public delegate void OnDrillthroughCloseHandler();
-
-        public event OnDrillthroughCloseHandler OnDrillthroughCloseEvent;
+        public event Func<Task> OnDrillthroughCloseEvent;
 
         [Parameter]
-        public OnDrillthroughCloseHandler OnDrillthroughClose
+        public Func<Task> OnDrillthroughClose
         {
             set
             {
@@ -352,9 +363,12 @@ namespace Flexmonster.Blazor
             }
         }
 
-        internal void InvokeDrillthroughCloseEvent()
+        internal async Task InvokeDrillthroughCloseEvent()
         {
-            OnDrillthroughCloseEvent?.Invoke();
+            if (OnDrillthroughCloseEvent != null)
+            {
+                await OnDrillthroughCloseEvent.Invoke();
+            }
         }
 
         #endregion DrillthroughClose
@@ -363,12 +377,10 @@ namespace Flexmonster.Blazor
 
         #region DrillthroughOpen
 
-        public delegate void OnDrillthroughOpenHandler(object data);
-
-        public event OnDrillthroughOpenHandler OnDrillthroughOpenEvent;
+        public event Func<object, Task> OnDrillthroughOpenEvent;
 
         [Parameter]
-        public OnDrillthroughOpenHandler OnDrillthroughOpen
+        public Func<object, Task> OnDrillthroughOpen
         {
             set
             {
@@ -379,21 +391,22 @@ namespace Flexmonster.Blazor
             }
         }
 
-        internal void InvokeDrillthroughOpenEvent(object data)
+        internal async Task InvokeDrillthroughOpenEvent(object data)
         {
-            OnDrillthroughOpenEvent?.Invoke(data);
+            if (OnDrillthroughOpenEvent != null)
+            {
+                await OnDrillthroughOpenEvent.Invoke(data);
+            }
         }
 
         #endregion DrillthroughOpen
 
         #region ExportComplete
 
-        public delegate void OnExportCompleteHandler();
-
-        public event OnExportCompleteHandler OnExportCompleteEvent;
+        public event Func<Task> OnExportCompleteEvent;
 
         [Parameter]
-        public OnExportCompleteHandler OnExportComplete
+        public Func<Task> OnExportComplete
         {
             set
             {
@@ -404,21 +417,22 @@ namespace Flexmonster.Blazor
             }
         }
 
-        internal void InvokeExportCompleteEvent()
+        internal async Task InvokeExportCompleteEvent()
         {
-            OnExportCompleteEvent?.Invoke();
+            if (OnExportCompleteEvent != null)
+            {
+                await OnExportCompleteEvent.Invoke();
+            }
         }
 
         #endregion ExportComplete
 
         #region ExportStart
 
-        public delegate void OnExportStartHandler();
-
-        public event OnExportStartHandler OnExportStartEvent;
+        public event Func<Task> OnExportStartEvent;
 
         [Parameter]
-        public OnExportStartHandler OnExportStart
+        public Func<Task> OnExportStart
         {
             set
             {
@@ -429,21 +443,22 @@ namespace Flexmonster.Blazor
             }
         }
 
-        internal void InvokeExportStartEvent()
+        internal async Task InvokeExportStartEvent()
         {
-            OnExportStartEvent?.Invoke();
+            if (OnExportStartEvent != null)
+            {
+                await OnExportStartEvent.Invoke();
+            }
         }
 
         #endregion ExportStart
 
         #region FieldsListClose
 
-        public delegate void OnFieldsListCloseHandler();
-
-        public event OnFieldsListCloseHandler OnFieldsListCloseEvent;
+        public event Func<Task> OnFieldsListCloseEvent;
 
         [Parameter]
-        public OnFieldsListCloseHandler OnFieldsListClose
+        public Func<Task> OnFieldsListClose
         {
             set
             {
@@ -454,21 +469,22 @@ namespace Flexmonster.Blazor
             }
         }
 
-        internal void InvokeFieldsListCloseEvent()
+        internal async Task InvokeFieldsListCloseEvent()
         {
-            OnFieldsListCloseEvent?.Invoke();
+            if (OnFieldsListCloseEvent != null)
+            {
+                await OnFieldsListCloseEvent.Invoke();
+            }
         }
 
         #endregion FieldsListClose
 
         #region FieldsListOpen
 
-        public delegate void OnFieldsListOpenHandler();
-
-        public event OnFieldsListOpenHandler OnFieldsListOpenEvent;
+        public event Func<Task> OnFieldsListOpenEvent;
 
         [Parameter]
-        public OnFieldsListOpenHandler OnFieldsListOpen
+        public Func<Task> OnFieldsListOpen
         {
             set
             {
@@ -479,21 +495,22 @@ namespace Flexmonster.Blazor
             }
         }
 
-        internal void InvokeFieldsListOpenEvent()
+        internal async Task InvokeFieldsListOpenEvent()
         {
-            OnFieldsListOpenEvent?.Invoke();
+            if (OnFieldsListOpenEvent != null)
+            {
+                await OnFieldsListOpenEvent.Invoke();
+            }
         }
 
         #endregion FieldsListOpen
 
         #region FilterClose
 
-        public delegate void OnFilterCloseHandler();
-
-        public event OnFilterCloseHandler OnFilterCloseEvent;
+        public event Func<Task> OnFilterCloseEvent;
 
         [Parameter]
-        public OnFilterCloseHandler OnFilterClose
+        public Func<Task> OnFilterClose
         {
             set
             {
@@ -504,21 +521,22 @@ namespace Flexmonster.Blazor
             }
         }
 
-        internal void InvokeFilterCloseEvent()
+        internal async Task InvokeFilterCloseEvent()
         {
-            OnFilterCloseEvent?.Invoke();
+            if (OnFilterCloseEvent != null)
+            {
+                await OnFilterCloseEvent.Invoke();
+            }
         }
 
         #endregion FilterClose
 
         #region FilterOpen
 
-        public delegate void OnFilterOpenHandler(FilterOpenParams filterOpenParams);
-
-        public event OnFilterOpenHandler OnFilterOpenEvent;
+        public event Func<FilterOpenParams, Task> OnFilterOpenEvent;
 
         [Parameter]
-        public OnFilterOpenHandler OnFilterOpen
+        public Func<FilterOpenParams, Task> OnFilterOpen
         {
             set
             {
@@ -529,21 +547,22 @@ namespace Flexmonster.Blazor
             }
         }
 
-        internal void InvokeFilterOpenEvent(FilterOpenParams filterOpenParams)
+        internal async Task InvokeFilterOpenEvent(FilterOpenParams filterOpenParams)
         {
-            OnFilterOpenEvent?.Invoke(filterOpenParams);
+            if (OnFilterOpenEvent != null)
+            {
+                await OnFilterOpenEvent.Invoke(filterOpenParams);
+            }
         }
 
         #endregion FilterOpen
 
         #region LoadingData
 
-        public delegate void OnLoadingDataHandler();
-
-        public event OnLoadingDataHandler OnLoadingDataEvent;
+        public event Func<Task> OnLoadingDataEvent;
 
         [Parameter]
-        public OnLoadingDataHandler OnLoadingData
+        public Func<Task> OnLoadingData
         {
             set
             {
@@ -554,21 +573,22 @@ namespace Flexmonster.Blazor
             }
         }
 
-        internal void InvokeLoadingDataEvent()
+        internal async Task InvokeLoadingDataEvent()
         {
-            OnLoadingDataEvent?.Invoke();
+            if (OnLoadingDataEvent != null)
+            {
+                await OnLoadingDataEvent.Invoke();
+            }
         }
 
         #endregion LoadingData
 
         #region LoadingLocalization
 
-        public delegate void OnLoadingLocalizationHandler();
-
-        public event OnLoadingLocalizationHandler OnLoadingLocalizationEvent;
+        public event Func<Task> OnLoadingLocalizationEvent;
 
         [Parameter]
-        public OnLoadingLocalizationHandler OnLoadingLocalization
+        public Func<Task> OnLoadingLocalization
         {
             set
             {
@@ -579,21 +599,22 @@ namespace Flexmonster.Blazor
             }
         }
 
-        internal void InvokeLoadingLocalizationEvent()
+        internal async Task InvokeLoadingLocalizationEvent()
         {
-            OnLoadingLocalizationEvent?.Invoke();
+            if (OnLoadingLocalizationEvent != null)
+            {
+                await OnLoadingLocalizationEvent.Invoke();
+            }
         }
 
         #endregion LoadingLocalization
 
         #region LoadingOLAPStructure
 
-        public delegate void OnLoadingOLAPStructureHandler();
-
-        public event OnLoadingOLAPStructureHandler OnLoadingOLAPStructureEvent;
+        public event Func<Task> OnLoadingOLAPStructureEvent;
 
         [Parameter]
-        public OnLoadingOLAPStructureHandler OnLoadingOLAPStructure
+        public Func<Task> OnLoadingOLAPStructure
         {
             set
             {
@@ -604,21 +625,22 @@ namespace Flexmonster.Blazor
             }
         }
 
-        internal void InvokeLoadingOLAPStructureEvent()
+        internal async Task InvokeLoadingOLAPStructureEvent()
         {
-            OnLoadingOLAPStructureEvent?.Invoke();
+            if (OnLoadingOLAPStructureEvent != null)
+            {
+                await OnLoadingOLAPStructureEvent.Invoke();
+            }
         }
 
         #endregion LoadingOLAPStructure
 
         #region LoadingReportFile
 
-        public delegate void OnLoadingReportFileHandler();
-
-        public event OnLoadingReportFileHandler OnLoadingReportFileEvent;
+        public event Func<Task> OnLoadingReportFileEvent;
 
         [Parameter]
-        public OnLoadingReportFileHandler OnLoadingReportFile
+        public Func<Task> OnLoadingReportFile
         {
             set
             {
@@ -629,21 +651,22 @@ namespace Flexmonster.Blazor
             }
         }
 
-        internal void InvokeLoadingReportFileEvent()
+        internal async Task InvokeLoadingReportFileEvent()
         {
-            OnLoadingReportFileEvent?.Invoke();
+            if (OnLoadingReportFileEvent != null)
+            {
+                await OnLoadingReportFileEvent.Invoke();
+            }
         }
 
         #endregion LoadingReportFile
 
         #region LocalizationError
 
-        public delegate void OnLocalizationErrorHandler();
-
-        public event OnLocalizationErrorHandler OnLocalizationErrorEvent;
+        public event Func<Task> OnLocalizationErrorEvent;
 
         [Parameter]
-        public OnLocalizationErrorHandler OnLocalizationError
+        public Func<Task> OnLocalizationError
         {
             set
             {
@@ -654,21 +677,22 @@ namespace Flexmonster.Blazor
             }
         }
 
-        internal void InvokeLocalizationErrorEvent()
+        internal async Task InvokeLocalizationErrorEvent()
         {
-            OnLocalizationErrorEvent?.Invoke();
+            if (OnLocalizationErrorEvent != null)
+            {
+                await OnLocalizationErrorEvent.Invoke();
+            }
         }
 
         #endregion LocalizationError
 
         #region LocalizationLoaded
 
-        public delegate void OnLocalizationLoadedHandler();
-
-        public event OnLocalizationLoadedHandler OnLocalizationLoadedEvent;
+        public event Func<Task> OnLocalizationLoadedEvent;
 
         [Parameter]
-        public OnLocalizationLoadedHandler OnLocalizationLoaded
+        public Func<Task> OnLocalizationLoaded
         {
             set
             {
@@ -679,21 +703,22 @@ namespace Flexmonster.Blazor
             }
         }
 
-        internal void InvokeLocalizationLoadedEvent()
+        internal async Task InvokeLocalizationLoadedEvent()
         {
-            OnLocalizationLoadedEvent?.Invoke();
+            if (OnLocalizationLoadedEvent != null)
+            {
+                await OnLocalizationLoadedEvent.Invoke();
+            }
         }
 
         #endregion LocalizationLoaded
 
         #region OLAPStructureError
 
-        public delegate void OnOLAPStructureErrorHandler();
-
-        public event OnOLAPStructureErrorHandler OnOLAPStructureErrorEvent;
+        public event Func<Task> OnOLAPStructureErrorEvent;
 
         [Parameter]
-        public OnOLAPStructureErrorHandler OnOLAPStructureError
+        public Func<Task> OnOLAPStructureError
         {
             set
             {
@@ -704,21 +729,22 @@ namespace Flexmonster.Blazor
             }
         }
 
-        internal void InvokeOLAPStructureErrorEvent()
+        internal async Task InvokeOLAPStructureErrorEvent()
         {
-            OnOLAPStructureErrorEvent?.Invoke();
+            if (OnOLAPStructureErrorEvent != null)
+            {
+                await OnOLAPStructureErrorEvent.Invoke();
+            }
         }
 
         #endregion OLAPStructureError
 
         #region OLAPStructureLoaded
 
-        public delegate void OnOLAPStructureLoadedHandler();
-
-        public event OnOLAPStructureLoadedHandler OnOLAPStructureLoadedEvent;
+        public event Func<Task> OnOLAPStructureLoadedEvent;
 
         [Parameter]
-        public OnOLAPStructureLoadedHandler OnOLAPStructureLoaded
+        public Func<Task> OnOLAPStructureLoaded
         {
             set
             {
@@ -729,21 +755,22 @@ namespace Flexmonster.Blazor
             }
         }
 
-        internal void InvokeOLAPStructureLoadedEvent()
+        internal async Task InvokeOLAPStructureLoadedEvent()
         {
-            OnOLAPStructureLoadedEvent?.Invoke();
+            if (OnOLAPStructureLoadedEvent != null)
+            {
+                await OnOLAPStructureLoadedEvent.Invoke();
+            }
         }
 
         #endregion OLAPStructureLoaded
 
         #region OpeningReportFile
 
-        public delegate void OnOpeningReportFileHandler();
-
-        public event OnOpeningReportFileHandler OnOpeningReportFileEvent;
+        public event Func<Task> OnOpeningReportFileEvent;
 
         [Parameter]
-        public OnOpeningReportFileHandler OnOpeningReportFile
+        public Func<Task> OnOpeningReportFile
         {
             set
             {
@@ -754,21 +781,22 @@ namespace Flexmonster.Blazor
             }
         }
 
-        internal void InvokeOpeningReportFileEvent()
+        internal async Task InvokeOpeningReportFileEvent()
         {
-            OnOpeningReportFileEvent?.Invoke();
+            if (OnOpeningReportFileEvent != null)
+            {
+                await OnOpeningReportFileEvent.Invoke();
+            }
         }
 
         #endregion OpeningReportFile
 
         #region PrintComplete
 
-        public delegate void OnPrintCompleteHandler();
-
-        public event OnPrintCompleteHandler OnPrintCompleteEvent;
+        public event Func<Task> OnPrintCompleteEvent;
 
         [Parameter]
-        public OnPrintCompleteHandler OnPrintComplete
+        public Func<Task> OnPrintComplete
         {
             set
             {
@@ -779,21 +807,22 @@ namespace Flexmonster.Blazor
             }
         }
 
-        internal void InvokePrintCompleteEvent()
+        internal async Task InvokePrintCompleteEvent()
         {
-            OnPrintCompleteEvent?.Invoke();
+            if (OnPrintCompleteEvent != null)
+            {
+                await OnPrintCompleteEvent.Invoke();
+            }
         }
 
         #endregion PrintComplete
 
         #region PrintStart
 
-        public delegate void OnPrintStartHandler();
-
-        public event OnPrintStartHandler OnPrintStartEvent;
+        public event Func<Task> OnPrintStartEvent;
 
         [Parameter]
-        public OnPrintStartHandler OnPrintStart
+        public Func<Task> OnPrintStart
         {
             set
             {
@@ -804,21 +833,22 @@ namespace Flexmonster.Blazor
             }
         }
 
-        internal void InvokePrintStartEvent()
+        internal async Task InvokePrintStartEvent()
         {
-            OnPrintStartEvent?.Invoke();
+            if (OnPrintStartEvent != null)
+            {
+                await OnPrintStartEvent.Invoke();
+            }
         }
 
         #endregion PrintStart
 
         #region QueryComplete
 
-        public delegate void OnQueryCompleteHandler();
-
-        public event OnQueryCompleteHandler OnQueryCompleteEvent;
+        public event Func<Task> OnQueryCompleteEvent;
 
         [Parameter]
-        public OnQueryCompleteHandler OnQueryComplete
+        public Func<Task> OnQueryComplete
         {
             set
             {
@@ -829,21 +859,22 @@ namespace Flexmonster.Blazor
             }
         }
 
-        internal void InvokeQueryCompleteEvent()
+        internal async Task InvokeQueryCompleteEvent()
         {
-            OnQueryCompleteEvent?.Invoke();
+            if (OnQueryCompleteEvent != null)
+            {
+                await OnQueryCompleteEvent.Invoke();
+            }
         }
 
         #endregion QueryComplete
 
         #region QueryError
 
-        public delegate void OnQueryErrorHandler();
-
-        public event OnQueryErrorHandler OnQueryErrorEvent;
+        public event Func<Task> OnQueryErrorEvent;
 
         [Parameter]
-        public OnQueryErrorHandler OnQueryError
+        public Func<Task> OnQueryError
         {
             set
             {
@@ -854,21 +885,22 @@ namespace Flexmonster.Blazor
             }
         }
 
-        internal void InvokeQueryErrorEvent()
+        internal async Task InvokeQueryErrorEvent()
         {
-            OnQueryErrorEvent?.Invoke();
+            if (OnQueryErrorEvent != null)
+            {
+                await OnQueryErrorEvent.Invoke();
+            }
         }
 
         #endregion QueryError
 
         #region Ready
 
-        public delegate void OnReadyHandler();
-
-        public event OnReadyHandler OnReadyEvent;
+        public event Func<Task> OnReadyEvent;
 
         [Parameter]
-        public OnReadyHandler OnReady
+        public Func<Task> OnReady
         {
             set
             {
@@ -879,21 +911,22 @@ namespace Flexmonster.Blazor
             }
         }
 
-        internal void InvokeReadyEvent()
+        internal async Task InvokeReadyEvent()
         {
-            OnReadyEvent?.Invoke();
+            if (OnReadyEvent != null)
+            {
+                await OnReadyEvent.Invoke();
+            }
         }
 
         #endregion Ready
 
         #region ReportChange
 
-        public delegate void OnReportChangeHandler();
-
-        public event OnReportChangeHandler OnReportChangeEvent;
+        public event Func<Task> OnReportChangeEvent;
 
         [Parameter]
-        public OnReportChangeHandler OnReportChange
+        public Func<Task> OnReportChange
         {
             set
             {
@@ -904,21 +937,22 @@ namespace Flexmonster.Blazor
             }
         }
 
-        internal void InvokeReportChangeEvent()
+        internal async Task InvokeReportChangeEvent()
         {
-            OnReportChangeEvent?.Invoke();
+            if (OnReportChangeEvent != null)
+            {
+                await OnReportChangeEvent.Invoke();
+            }
         }
 
         #endregion ReportChange
 
         #region ReportComplete
 
-        public delegate void OnReportCompleteHandler();
-
-        public event OnReportCompleteHandler OnReportCompleteEvent;
+        public event Func<Task> OnReportCompleteEvent;
 
         [Parameter]
-        public OnReportCompleteHandler OnReportComplete
+        public Func<Task> OnReportComplete
         {
             set
             {
@@ -929,21 +963,22 @@ namespace Flexmonster.Blazor
             }
         }
 
-        internal void InvokeReportCompleteEvent()
+        internal async Task InvokeReportCompleteEvent()
         {
-            OnReportCompleteEvent?.Invoke();
+            if (OnReportCompleteEvent != null)
+            {
+                await OnReportCompleteEvent.Invoke();
+            }
         }
 
         #endregion ReportComplete
 
         #region ReportFileLoaded
 
-        public delegate void OnReportFileLoadedHandler();
-
-        public event OnReportFileLoadedHandler OnReportFileLoadedEvent;
+        public event Func<Task> OnReportFileLoadedEvent;
 
         [Parameter]
-        public OnReportFileLoadedHandler OnReportFileLoaded
+        public Func<Task> OnReportFileLoaded
         {
             set
             {
@@ -954,21 +989,22 @@ namespace Flexmonster.Blazor
             }
         }
 
-        internal void InvokeReportFileLoadedEvent()
+        internal async Task InvokeReportFileLoadedEvent()
         {
-            OnReportFileLoadedEvent?.Invoke();
+            if (OnReportFileLoadedEvent != null)
+            {
+                await OnReportFileLoadedEvent.Invoke();
+            }
         }
 
         #endregion ReportFileLoaded
 
         #region ReportFileCancelled
 
-        public delegate void OnReportFileCancelledHandler();
-
-        public event OnReportFileCancelledHandler OnReportFileCancelledEvent;
+        public event Func<Task> OnReportFileCancelledEvent;
 
         [Parameter]
-        public OnReportFileCancelledHandler OnReportFileCancelled
+        public Func<Task> OnReportFileCancelled
         {
             set
             {
@@ -979,21 +1015,22 @@ namespace Flexmonster.Blazor
             }
         }
 
-        internal void InvokeReportFileCancelledEvent()
+        internal async Task InvokeReportFileCancelledEvent()
         {
-            OnReportFileCancelledEvent?.Invoke();
+            if (OnReportFileCancelledEvent != null)
+            {
+                await OnReportFileCancelledEvent.Invoke();
+            }
         }
 
         #endregion ReportFileCancelled
 
         #region ReportFileError
 
-        public delegate void OnReportFileErrorHandler();
-
-        public event OnReportFileErrorHandler OnReportFileErrorEvent;
+        public event Func<Task> OnReportFileErrorEvent;
 
         [Parameter]
-        public OnReportFileErrorHandler OnReportFileError
+        public Func<Task> OnReportFileError
         {
             set
             {
@@ -1004,21 +1041,22 @@ namespace Flexmonster.Blazor
             }
         }
 
-        internal void InvokeReportFileErrorEvent()
+        internal async Task InvokeReportFileErrorEvent()
         {
-            OnReportFileErrorEvent?.Invoke();
+            if (OnReportFileErrorEvent != null)
+            {
+                await OnReportFileErrorEvent.Invoke();
+            }
         }
 
         #endregion ReportFileError
 
         #region RunningQuery
 
-        public delegate void OnRunningQueryHandler();
-
-        public event OnRunningQueryHandler OnRunningQueryEvent;
+        public event Func<Task> OnRunningQueryEvent;
 
         [Parameter]
-        public OnRunningQueryHandler OnRunningQuery
+        public Func<Task> OnRunningQuery
         {
             set
             {
@@ -1029,21 +1067,22 @@ namespace Flexmonster.Blazor
             }
         }
 
-        internal void InvokeRunningQueryEvent()
+        internal async Task InvokeRunningQueryEvent()
         {
-            OnRunningQueryEvent?.Invoke();
+            if (OnRunningQueryEvent != null)
+            {
+                await OnRunningQueryEvent.Invoke();
+            }
         }
 
         #endregion RunningQuery
 
         #region Update
 
-        public delegate void OnUpdateHandler();
-
-        public event OnUpdateHandler OnUpdateEvent;
+        public event Func<Task> OnUpdateEvent;
 
         [Parameter]
-        public OnUpdateHandler OnUpdate
+        public Func<Task> OnUpdate
         {
             set
             {
@@ -1054,9 +1093,12 @@ namespace Flexmonster.Blazor
             }
         }
 
-        internal void InvokeUpdateEvent()
+        internal async Task InvokeUpdateEvent()
         {
-            OnUpdateEvent?.Invoke();
+            if (OnUpdateEvent != null)
+            {
+                await OnUpdateEvent.Invoke();
+            }
         }
 
         #endregion Update
@@ -1154,7 +1196,7 @@ namespace Flexmonster.Blazor
             await JsRuntime.InvokeAsync<object>($"{id}.expandData", hierarchyName);
         }
 
-        public delegate void ExportToHandler(ExportToResult result, ExportToError error);
+        public delegate Task ExportToHandler(ExportToResult result, ExportToError error);
 
         public async Task ExportTo(string type, ExportOptions exportOptions = null, ExportToHandler handler = null)
         {
@@ -1164,9 +1206,9 @@ namespace Flexmonster.Blazor
 
         internal ExportToHandler _exportToHandler;
 
-        internal void InvokeExportToHandler(ExportToResult result, ExportToError error)
+        internal async Task InvokeExportToHandler(ExportToResult result, ExportToError error)
         {
-            _exportToHandler?.Invoke(result, error);
+            await _exportToHandler?.Invoke(result, error);
         }
 
         public async Task<ConditionalFormat[]> GetAllConditions()
@@ -1216,7 +1258,7 @@ namespace Flexmonster.Blazor
             return await JsRuntime.InvokeAsync<Measure[]>($"{id}.getMeasures");
         }
 
-        public delegate void GetMembersHandler(Member[] members);
+        public delegate Task GetMembersHandler(Member[] members);
 
         public async Task GetMembers(string hierarchyName, string memberName = null, GetMembersHandler handler = null)
         {
@@ -1226,9 +1268,9 @@ namespace Flexmonster.Blazor
 
         internal GetMembersHandler _getMembersHandler;
 
-        internal void InvokeGetMembersHandler(Member[] members)
+        internal async Task InvokeGetMembersHandler(Member[] members)
         {
-            _getMembersHandler?.Invoke(members);
+            await _getMembersHandler?.Invoke(members);
         }
 
         public async Task<Options> GetOptions()
@@ -1310,7 +1352,7 @@ namespace Flexmonster.Blazor
             await JsRuntime.InvokeAsync<object>($"{id}.open");
         }
 
-        public delegate void OpenCalculatedValueEditorHandler(OpenCalculatedValueEditorResult result);
+        public delegate Task OpenCalculatedValueEditorHandler(OpenCalculatedValueEditorResult result);
 
         public async Task OpenCalculatedValueEditor(string uniqueName = null, OpenCalculatedValueEditorHandler handler = null)
         {
@@ -1320,9 +1362,9 @@ namespace Flexmonster.Blazor
 
         internal OpenCalculatedValueEditorHandler _openCalculatedValueEditorHandler;
 
-        internal void InvokeOpenCalculatedValueEditorHandler(OpenCalculatedValueEditorResult result)
+        internal async Task InvokeOpenCalculatedValueEditorHandler(OpenCalculatedValueEditorResult result)
         {
-            _openCalculatedValueEditorHandler?.Invoke(result);
+            await _openCalculatedValueEditorHandler?.Invoke(result);
         }
 
         public async Task OpenFieldsList()
@@ -1384,9 +1426,9 @@ namespace Flexmonster.Blazor
 
         private SaveParams.SaveHandler _saveHandler;
 
-        internal void InvokeSaveHandler(SaveResult result, SaveError error)
+        internal async Task InvokeSaveHandler(SaveResult result, SaveError error)
         {
-            _saveHandler?.Invoke(result, error);
+            await _saveHandler?.Invoke(result, error);
         }
 
         public async Task ScrollToRow(int rowIndex)

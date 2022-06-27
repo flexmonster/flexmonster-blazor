@@ -7,7 +7,7 @@ namespace Flexmonster.Blazor
         [JsonPropertyName("type")]
         public string Type { get; set; }
 
-        [JsonPropertyName("caption ")]
+        [JsonPropertyName("caption")]
         public string Caption { get; set; }
 
         [JsonPropertyName("dimensionCaption")]

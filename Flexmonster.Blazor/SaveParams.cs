@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Text.Json.Serialization;
+using System.Threading.Tasks;
 
 namespace Flexmonster.Blazor
 {
@@ -11,7 +12,7 @@ namespace Flexmonster.Blazor
         [JsonPropertyName("destination")]
         public string Destination { get; set; }
 
-        public delegate void SaveHandler(SaveResult result, SaveError error);
+        public delegate Task SaveHandler(SaveResult result, SaveError error);
 
         [JsonIgnore]
         public SaveHandler SaveCallback { get; set; }

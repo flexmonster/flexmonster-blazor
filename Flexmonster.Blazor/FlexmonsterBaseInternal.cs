@@ -1,4 +1,5 @@
 ﻿using Microsoft.JSInterop;
+using System.Threading.Tasks;
 
 namespace Flexmonster.Blazor
 {
@@ -14,43 +15,43 @@ namespace Flexmonster.Blazor
         #region AfterChartDraw
 
         [JSInvokable]
-        public void AfterChartDrawCallBack()
+        public async Task AfterChartDrawCallBack()
         {
-            _flexmonsterBase.InvokeAfterChartDrawEvent();
+            await _flexmonsterBase.InvokeAfterChartDrawEvent();
         }
 
         #endregion AfterChartDraw
 
         #region AfterGridDraw
         [JSInvokable]
-        public void AfterGridDrawCallBack(GridDrawParams gridDrawParams)
+        public async Task AfterGridDrawCallBack(GridDrawParams gridDrawParams)
         {
-            _flexmonsterBase.InvokeAfterGridDrawEvent(gridDrawParams);
+            await _flexmonsterBase.InvokeAfterGridDrawEvent(gridDrawParams);
         }
         #endregion
 
         #region BeforeGridDraw
         [JSInvokable]
-        public void BeforeGridDrawCallBack(GridDrawParams gridDrawParams)
+        public async Task BeforeGridDrawCallBack(GridDrawParams gridDrawParams)
         {
-            _flexmonsterBase.InvokeBeforeGridDrawEvent(gridDrawParams);
+            await _flexmonsterBase.InvokeBeforeGridDrawEvent(gridDrawParams);
         }
         #endregion
 
         #region BeforeToolbarCreated
         [JSInvokable]
-        public void BeforeToolbarCreatedCallBack(object toolbar)
+        public async Task BeforeToolbarCreatedCallBack(object toolbar)
         {
-            _flexmonsterBase.InvokeBeforeToolbarCreatedEvent(toolbar);
+            await _flexmonsterBase.InvokeBeforeToolbarCreatedEvent(toolbar);
         }
         #endregion BeforeToolbarCreated
 
         #region CellClick
 
         [JSInvokable]
-        public void CellClickCallBack(CellData cellData)
+        public async Task CellClickCallBack(CellData cellData)
         {
-            _flexmonsterBase.InvokeCellClickEvent(cellData);
+            await _flexmonsterBase.InvokeCellClickEvent(cellData);
         }
 
         #endregion CellClick
@@ -58,9 +59,9 @@ namespace Flexmonster.Blazor
         #region CellDoubleClick
 
         [JSInvokable]
-        public void CellDoubleClickCallBack(CellData cellData)
+        public async Task CellDoubleClickCallBack(CellData cellData)
         {
-            _flexmonsterBase.InvokeCellDoubleClickEvent(cellData);
+            await _flexmonsterBase.InvokeCellDoubleClickEvent(cellData);
         }
 
         #endregion CellDoubleClick
@@ -68,9 +69,9 @@ namespace Flexmonster.Blazor
         #region ChartClick
 
         [JSInvokable]
-        public void ChartClickCallBack(ChartData chartData)
+        public async Task ChartClickCallBack(ChartData chartData)
         {
-            _flexmonsterBase.InvokeChartClickEvent(chartData);
+            await _flexmonsterBase.InvokeChartClickEvent(chartData);
         }
 
         #endregion ChartClick
@@ -78,9 +79,9 @@ namespace Flexmonster.Blazor
         #region DataChanged
 
         [JSInvokable]
-        public void DataChangedCallBack(DataChangedParams dataChangedParams)
+        public async Task DataChangedCallBack(DataChangedParams dataChangedParams)
         {
-            _flexmonsterBase.InvokeDataChangedEvent(dataChangedParams);
+            await _flexmonsterBase.InvokeDataChangedEvent(dataChangedParams);
         }
 
         #endregion DataChanged
@@ -88,9 +89,9 @@ namespace Flexmonster.Blazor
         #region DataError
 
         [JSInvokable]
-        public void DataErrorCallBack(DataErrorParams dataErrorParams)
+        public async Task DataErrorCallBack(DataErrorParams dataErrorParams)
         {
-            _flexmonsterBase.InvokeDataErrorEvent(dataErrorParams);
+            await _flexmonsterBase.InvokeDataErrorEvent(dataErrorParams);
         }
 
         #endregion DataError
@@ -98,9 +99,9 @@ namespace Flexmonster.Blazor
         #region DataFileCancelled
 
         [JSInvokable]
-        public void DataFileCancelledCallBack()
+        public async Task DataFileCancelledCallBack()
         {
-            _flexmonsterBase.InvokeDataFileCancelledEvent();
+            await _flexmonsterBase.InvokeDataFileCancelledEvent();
         }
 
         #endregion DataFileCancelled
@@ -108,9 +109,9 @@ namespace Flexmonster.Blazor
         #region DataLoaded
 
         [JSInvokable]
-        public void DataLoadedCallBack()
+        public async Task DataLoadedCallBack()
         {
-            _flexmonsterBase.InvokeDataLoadedEvent();
+            await _flexmonsterBase.InvokeDataLoadedEvent();
         }
 
         #endregion DataLoaded
@@ -118,9 +119,9 @@ namespace Flexmonster.Blazor
         #region DrillthroughClose
 
         [JSInvokable]
-        public void DrillthroughCloseCallBack()
+        public async Task DrillthroughCloseCallBack()
         {
-            _flexmonsterBase.InvokeDrillthroughCloseEvent();
+            await _flexmonsterBase.InvokeDrillthroughCloseEvent();
         }
 
         #endregion DrillthroughClose
@@ -128,15 +129,15 @@ namespace Flexmonster.Blazor
         #region DrillthroughOpen
 
         [JSInvokable]
-        public void DrillthroughOpenCellCallBack(CellData data)
+        public async Task DrillthroughOpenCellCallBack(CellData data)
         {
-            _flexmonsterBase.InvokeDrillthroughOpenEvent(data);
+            await _flexmonsterBase.InvokeDrillthroughOpenEvent(data);
         }
 
         [JSInvokable]
-        public void DrillthroughOpenChartCallBack(ChartData data)
+        public async Task DrillthroughOpenChartCallBack(ChartData data)
         {
-            _flexmonsterBase.InvokeDrillthroughOpenEvent(data);
+            await _flexmonsterBase.InvokeDrillthroughOpenEvent(data);
         }
 
         #endregion DrillthroughOpen
@@ -144,9 +145,9 @@ namespace Flexmonster.Blazor
         #region ExportComplete
 
         [JSInvokable]
-        public void ExportCompleteCallBack()
+        public async Task ExportCompleteCallBack()
         {
-            _flexmonsterBase.InvokeExportCompleteEvent();
+            await _flexmonsterBase.InvokeExportCompleteEvent();
         }
 
         #endregion ExportComplete
@@ -154,9 +155,9 @@ namespace Flexmonster.Blazor
         #region ExportStart
 
         [JSInvokable]
-        public void ExportStartCallBack()
+        public async Task ExportStartCallBack()
         {
-            _flexmonsterBase.InvokeExportStartEvent();
+            await _flexmonsterBase.InvokeExportStartEvent();
         }
 
         #endregion ExportStart
@@ -164,9 +165,9 @@ namespace Flexmonster.Blazor
         #region FieldsListClose
 
         [JSInvokable]
-        public void FieldsListCloseCallBack()
+        public async Task FieldsListCloseCallBack()
         {
-            _flexmonsterBase.InvokeFieldsListCloseEvent();
+            await _flexmonsterBase.InvokeFieldsListCloseEvent();
         }
 
         #endregion FieldsListClose
@@ -174,9 +175,9 @@ namespace Flexmonster.Blazor
         #region FieldsListOpen
 
         [JSInvokable]
-        public void FieldsListOpenCallBack()
+        public async Task FieldsListOpenCallBack()
         {
-            _flexmonsterBase.InvokeFieldsListOpenEvent();
+            await _flexmonsterBase.InvokeFieldsListOpenEvent();
         }
 
         #endregion FieldsListOpen
@@ -184,9 +185,9 @@ namespace Flexmonster.Blazor
         #region FilterClose
 
         [JSInvokable]
-        public void FilterCloseCallBack()
+        public async Task FilterCloseCallBack()
         {
-            _flexmonsterBase.InvokeFilterCloseEvent();
+            await _flexmonsterBase.InvokeFilterCloseEvent();
         }
 
         #endregion FilterClose
@@ -194,9 +195,9 @@ namespace Flexmonster.Blazor
         #region FilterOpen
 
         [JSInvokable]
-        public void FilterOpenCallBack(FilterOpenParams filterOpenParams)
+        public async Task FilterOpenCallBack(FilterOpenParams filterOpenParams)
         {
-            _flexmonsterBase.InvokeFilterOpenEvent(filterOpenParams);
+            await _flexmonsterBase.InvokeFilterOpenEvent(filterOpenParams);
         }
 
         #endregion FilterOpen
@@ -204,9 +205,9 @@ namespace Flexmonster.Blazor
         #region LoadingData
 
         [JSInvokable]
-        public void LoadingDataCallBack()
+        public async Task LoadingDataCallBack()
         {
-            _flexmonsterBase.InvokeLoadingDataEvent();
+            await _flexmonsterBase.InvokeLoadingDataEvent();
         }
 
         #endregion LoadingData
@@ -214,9 +215,9 @@ namespace Flexmonster.Blazor
         #region LoadingLocalization
 
         [JSInvokable]
-        public void LoadingLocalizationCallBack()
+        public async Task LoadingLocalizationCallBack()
         {
-            _flexmonsterBase.InvokeLoadingLocalizationEvent();
+            await _flexmonsterBase.InvokeLoadingLocalizationEvent();
         }
 
         #endregion LoadingLocalization
@@ -224,9 +225,9 @@ namespace Flexmonster.Blazor
         #region LoadingOLAPStructure
 
         [JSInvokable]
-        public void LoadingOLAPStructureCallBack()
+        public async Task LoadingOLAPStructureCallBack()
         {
-            _flexmonsterBase.InvokeLoadingOLAPStructureEvent();
+            await _flexmonsterBase.InvokeLoadingOLAPStructureEvent();
         }
 
         #endregion LoadingOLAPStructure
@@ -234,9 +235,9 @@ namespace Flexmonster.Blazor
         #region LoadingReportFile
 
         [JSInvokable]
-        public void LoadingReportFileCallBack()
+        public async Task LoadingReportFileCallBack()
         {
-            _flexmonsterBase.InvokeLoadingReportFileEvent();
+            await _flexmonsterBase.InvokeLoadingReportFileEvent();
         }
 
         #endregion LoadingReportFile
@@ -244,9 +245,9 @@ namespace Flexmonster.Blazor
         #region LocalizationError
 
         [JSInvokable]
-        public void LocalizationErrorCallBack()
+        public async Task LocalizationErrorCallBack()
         {
-            _flexmonsterBase.InvokeLocalizationErrorEvent();
+            await _flexmonsterBase.InvokeLocalizationErrorEvent();
         }
 
         #endregion LocalizationError
@@ -254,9 +255,9 @@ namespace Flexmonster.Blazor
         #region LocalizationLoaded
 
         [JSInvokable]
-        public void LocalizationLoadedCallBack()
+        public async Task LocalizationLoadedCallBack()
         {
-            _flexmonsterBase.InvokeLocalizationLoadedEvent();
+            await _flexmonsterBase.InvokeLocalizationLoadedEvent();
         }
 
         #endregion LocalizationLoaded
@@ -264,9 +265,9 @@ namespace Flexmonster.Blazor
         #region OLAPStructureError
 
         [JSInvokable]
-        public void OLAPStructureErrorCallBack()
+        public async Task OLAPStructureErrorCallBack()
         {
-            _flexmonsterBase.InvokeOLAPStructureErrorEvent();
+            await _flexmonsterBase.InvokeOLAPStructureErrorEvent();
         }
 
         #endregion OLAPStructureError
@@ -274,9 +275,9 @@ namespace Flexmonster.Blazor
         #region OLAPStructureLoaded
 
         [JSInvokable]
-        public void OLAPStructureLoadedCallBack()
+        public async Task OLAPStructureLoadedCallBack()
         {
-            _flexmonsterBase.InvokeOLAPStructureLoadedEvent();
+            await _flexmonsterBase.InvokeOLAPStructureLoadedEvent();
         }
 
         #endregion OLAPStructureLoaded
@@ -284,9 +285,9 @@ namespace Flexmonster.Blazor
         #region OpeningReportFile
 
         [JSInvokable]
-        public void OpeningReportFileCallBack()
+        public async Task OpeningReportFileCallBack()
         {
-            _flexmonsterBase.InvokeOpeningReportFileEvent();
+            await _flexmonsterBase.InvokeOpeningReportFileEvent();
         }
 
         #endregion OpeningReportFile
@@ -294,9 +295,9 @@ namespace Flexmonster.Blazor
         #region PrintComplete
 
         [JSInvokable]
-        public void PrintCompleteCallBack()
+        public async Task PrintCompleteCallBack()
         {
-            _flexmonsterBase.InvokePrintCompleteEvent();
+            await _flexmonsterBase.InvokePrintCompleteEvent();
         }
 
         #endregion PrintComplete
@@ -304,9 +305,9 @@ namespace Flexmonster.Blazor
         #region PrintStart
 
         [JSInvokable]
-        public void PrintStartCallBack()
+        public async Task PrintStartCallBack()
         {
-            _flexmonsterBase.InvokePrintStartEvent();
+            await _flexmonsterBase.InvokePrintStartEvent();
         }
 
         #endregion PrintStart
@@ -314,9 +315,9 @@ namespace Flexmonster.Blazor
         #region QueryComplete
 
         [JSInvokable]
-        public void QueryCompleteCallBack()
+        public async Task QueryCompleteCallBack()
         {
-            _flexmonsterBase.InvokeQueryCompleteEvent();
+            await _flexmonsterBase.InvokeQueryCompleteEvent();
         }
 
         #endregion QueryComplete
@@ -324,9 +325,9 @@ namespace Flexmonster.Blazor
         #region QueryError
 
         [JSInvokable]
-        public void QueryErrorCallBack()
+        public async Task QueryErrorCallBack()
         {
-            _flexmonsterBase.InvokeQueryErrorEvent();
+            await _flexmonsterBase.InvokeQueryErrorEvent();
         }
 
         #endregion QueryError
@@ -334,9 +335,9 @@ namespace Flexmonster.Blazor
         #region Ready
 
         [JSInvokable]
-        public void ReadyCallBack()
+        public async Task ReadyCallBack()
         {
-            _flexmonsterBase.InvokeReadyEvent();
+            await _flexmonsterBase.InvokeReadyEvent();
         }
 
         #endregion Ready
@@ -344,9 +345,9 @@ namespace Flexmonster.Blazor
         #region ReportChange
 
         [JSInvokable]
-        public void ReportChangeCallBack()
+        public async Task ReportChangeCallBack()
         {
-            _flexmonsterBase.InvokeReportChangeEvent();
+            await _flexmonsterBase.InvokeReportChangeEvent();
         }
 
         #endregion ReportChange
@@ -354,9 +355,9 @@ namespace Flexmonster.Blazor
         #region ReportComplete
 
         [JSInvokable]
-        public void ReportCompleteCallBack()
+        public async Task ReportCompleteCallBack()
         {
-            _flexmonsterBase.InvokeReportCompleteEvent();
+            await _flexmonsterBase.InvokeReportCompleteEvent();
         }
 
         #endregion ReportComplete
@@ -364,9 +365,9 @@ namespace Flexmonster.Blazor
         #region ReportFileLoaded
 
         [JSInvokable]
-        public void ReportFileLoadedCallBack()
+        public async Task ReportFileLoadedCallBack()
         {
-            _flexmonsterBase.InvokeReportFileLoadedEvent();
+            await _flexmonsterBase.InvokeReportFileLoadedEvent();
         }
 
         #endregion ReportFileLoaded
@@ -374,9 +375,9 @@ namespace Flexmonster.Blazor
         #region ReportFileCancelled
 
         [JSInvokable]
-        public void ReportFileCancelledCallBack()
+        public async Task ReportFileCancelledCallBack()
         {
-            _flexmonsterBase.InvokeReportFileCancelledEvent();
+            await _flexmonsterBase.InvokeReportFileCancelledEvent();
         }
 
         #endregion ReportFileCancelled
@@ -384,9 +385,9 @@ namespace Flexmonster.Blazor
         #region ReportFileError
 
         [JSInvokable]
-        public void ReportFileErrorCallBack()
+        public async Task ReportFileErrorCallBack()
         {
-            _flexmonsterBase.InvokeReportFileErrorEvent();
+            await _flexmonsterBase.InvokeReportFileErrorEvent();
         }
 
         #endregion ReportFileError
@@ -394,9 +395,9 @@ namespace Flexmonster.Blazor
         #region RunningQuery
 
         [JSInvokable]
-        public void RunningQueryCallBack()
+        public async Task RunningQueryCallBack()
         {
-            _flexmonsterBase.InvokeRunningQueryEvent();
+            await _flexmonsterBase.InvokeRunningQueryEvent();
         }
 
         #endregion RunningQuery
@@ -404,35 +405,35 @@ namespace Flexmonster.Blazor
         #region Update
 
         [JSInvokable]
-        public void UpdateCallBack()
+        public async Task UpdateCallBack()
         {
-            _flexmonsterBase.InvokeUpdateEvent();
+            await _flexmonsterBase.InvokeUpdateEvent();
         }
 
         #endregion Update
 
         [JSInvokable]
-        public void ExportToCallBack(ExportToResult result, ExportToError error)
+        public async Task ExportToCallBack(ExportToResult result, ExportToError error)
         {
-            _flexmonsterBase.InvokeExportToHandler(result, error);
+            await _flexmonsterBase.InvokeExportToHandler(result, error);
         }
 
         [JSInvokable]
-        public void GetMembersCallBack(Member[] members)
+        public async Task GetMembersCallBack(Member[] members)
         {
-            _flexmonsterBase.InvokeGetMembersHandler(members);
+            await _flexmonsterBase.InvokeGetMembersHandler(members);
         }
 
         [JSInvokable]
-        public void OpenCalculatedValueEditorCallBack(OpenCalculatedValueEditorResult result)
+        public async Task OpenCalculatedValueEditorCallBack(OpenCalculatedValueEditorResult result)
         {
-            _flexmonsterBase.InvokeOpenCalculatedValueEditorHandler(result);
+            await _flexmonsterBase.InvokeOpenCalculatedValueEditorHandler(result);
         }
 
         [JSInvokable]
-        public void SaveCallBack(SaveResult result, SaveError error)
+        public async Task SaveCallBack(SaveResult result, SaveError error)
         {
-            _flexmonsterBase.InvokeSaveHandler(result, error);
+            await _flexmonsterBase.InvokeSaveHandler(result, error);
         }
 
 
