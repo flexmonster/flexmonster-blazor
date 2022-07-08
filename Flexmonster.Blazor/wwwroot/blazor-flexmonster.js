@@ -1,6 +1,6 @@
 ﻿window.blazorflexmonster = {};
 window.blazorflexmonster.isScriptLoaded = false;
-window.blazorflexmonster.initFlexmonster = (instance, flexmonsterParams, id) => {
+window.blazorflexmonster.initFlexmonster = (instance, flexmonsterParams, id, javaScriptHandler) => {
     if (!window.blazorflexmonster.isScriptLoaded) {
         if (window.blazorflexmonster.script === undefined) {
             var link = document.createElement("link");
@@ -15,10 +15,10 @@ window.blazorflexmonster.initFlexmonster = (instance, flexmonsterParams, id) => 
         }
         window.blazorflexmonster.script.addEventListener("load", () => {
             window.blazorflexmonster.isScriptLoaded = true;
-            declareFlexmonster(instance, flexmonsterParams, id);
+            declareFlexmonster(instance, flexmonsterParams, id, javaScriptHandler);
         });
     } else {
-        declareFlexmonster(instance, flexmonsterParams, id);
+        declareFlexmonster(instance, flexmonsterParams, id, javaScriptHandler);
     }
 
 }
@@ -33,7 +33,7 @@ window.blazorflexmonster.exportToApiCall = (id, instance, type, params) => {
     }
 }
 
-function declareFlexmonster(instance, flexmonsterParams, id) {
+function declareFlexmonster(instance, flexmonsterParams, id, javaScriptHandler) {
     var pivot = new Flexmonster(flexmonsterParams);
 
     pivot.on('afterchartdraw', function () {
@@ -200,6 +200,14 @@ function declareFlexmonster(instance, flexmonsterParams, id) {
     });
 
     window[id] = pivot;
+    if (javaScriptHandler !== undefined && window[javaScriptHandler] !== undefined) {
+        try {
+            window[javaScriptHandler](pivot);
+        }
+        catch (e) {
+
+        }
+    }
 }
 
 function removeStringFromCell(cell) {
