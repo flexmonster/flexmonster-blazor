@@ -179,10 +179,6 @@ function declareFlexmonster(instance, flexmonsterParams, id, javaScriptHandler) 
         instance.invokeMethodAsync("ReportCompleteCallBack");
     });
 
-    pivot.on('reportfileloaded', function () {
-        instance.invokeMethodAsync("ReportFileLoadedCallBack");
-    });
-
     pivot.on('reportfilecancelled', function () {
         instance.invokeMethodAsync("ReportFileCancelledCallBack");
     });

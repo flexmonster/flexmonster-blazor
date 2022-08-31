@@ -362,16 +362,6 @@ namespace Flexmonster.Blazor
 
         #endregion ReportComplete
 
-        #region ReportFileLoaded
-
-        [JSInvokable]
-        public async Task ReportFileLoadedCallBack()
-        {
-            await _flexmonsterBase.InvokeReportFileLoadedEvent();
-        }
-
-        #endregion ReportFileLoaded
-
         #region ReportFileCancelled
 
         [JSInvokable]
