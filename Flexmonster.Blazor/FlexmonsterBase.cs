@@ -976,32 +976,6 @@ namespace Flexmonster.Blazor
 
         #endregion ReportComplete
 
-        #region ReportFileLoaded
-
-        public event Func<Task> OnReportFileLoadedEvent;
-
-        [Parameter]
-        public Func<Task> OnReportFileLoaded
-        {
-            set
-            {
-                if (OnReportFileLoadedEvent == null)
-                {
-                    OnReportFileLoadedEvent += value;
-                }
-            }
-        }
-
-        internal async Task InvokeReportFileLoadedEvent()
-        {
-            if (OnReportFileLoadedEvent != null)
-            {
-                await OnReportFileLoadedEvent.Invoke();
-            }
-        }
-
-        #endregion ReportFileLoaded
-
         #region ReportFileCancelled
 
         public event Func<Task> OnReportFileCancelledEvent;
