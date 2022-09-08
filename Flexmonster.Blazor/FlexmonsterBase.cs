@@ -1248,7 +1248,7 @@ namespace Flexmonster.Blazor
 
         public async Task<Filter> GetFilter(string hierarchyName)
         {
-            return await JsRuntime.InvokeAsync<Filter>($"{id}.setFilter", hierarchyName);
+            return await JsRuntime.InvokeAsync<Filter>($"{id}.getFilter", hierarchyName);
         }
 
         public async Task<Format> GetFormat(string measureName)

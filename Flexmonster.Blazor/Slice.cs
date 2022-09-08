@@ -32,6 +32,6 @@ namespace Flexmonster.Blazor
         public string[] FlatOrder { get; set; }
 
         [JsonPropertyName("flatSort")]
-        public string[] FlatSort { get; set; }
+        public FlatSort[] FlatSort { get; set; }
     }
 }

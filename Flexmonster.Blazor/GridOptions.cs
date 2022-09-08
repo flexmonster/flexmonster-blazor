@@ -23,7 +23,7 @@ namespace Flexmonster.Blazor
         public bool? ShowReportFiltersArea { get; set; }
 
         [JsonPropertyName("showTotals")]
-        public bool? ShowTotals { get; set; }
+        public string ShowTotals { get; set; }
 
         [JsonPropertyName("title")]
         public string Title { get; set; }
