@@ -20,6 +20,9 @@ namespace Flexmonster.Blazor
         [JsonPropertyName("header")]
         public string Header { get; set; }
 
+        [JsonPropertyName("pageFormat")]
+        public string PageFormat { get; set; }
+
         [JsonPropertyName("pageOrientation")]
         public string PageOrientation { get; set; }
 
