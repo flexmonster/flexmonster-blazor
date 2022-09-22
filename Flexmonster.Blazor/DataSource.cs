@@ -82,5 +82,8 @@ namespace Flexmonster.Blazor
 
         [JsonPropertyName("singleEndpoint")]
         public bool? SingleEndpoint { get; set; }
+
+        [JsonPropertyName("concurrentRequests")]
+        public bool? ConcurrentRequests { get; set; }
     }
 }
