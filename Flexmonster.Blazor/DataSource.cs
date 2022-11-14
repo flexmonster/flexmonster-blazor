@@ -75,7 +75,7 @@ namespace Flexmonster.Blazor
         public bool? UseStreamLoader { get; set; }
 
         [JsonPropertyName("mapping")]
-        public Mapping Mapping { get; set; }
+        public Dictionary<string,Mapping> Mapping { get; set; }
 
         [JsonPropertyName("withCredentials")]
         public bool? WithCredentials { get; set; }
