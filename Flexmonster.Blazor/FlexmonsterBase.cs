@@ -1163,9 +1163,9 @@ namespace Flexmonster.Blazor
             await JsRuntime.InvokeAsync<object>($"{id}.dispose");
         }
 
-        public async Task ExpandAllData(bool withAllChildren = true)
+        public async Task ExpandAllData(bool withAllChildren = true, string type = "all")
         {
-            await JsRuntime.InvokeAsync<object>($"{id}.expandAllData", withAllChildren);
+            await JsRuntime.InvokeAsync<object>($"{id}.expandAllData", withAllChildren, type);
         }
 
         public async Task ExpandData(string hierarchyName)

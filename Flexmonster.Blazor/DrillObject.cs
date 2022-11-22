@@ -7,6 +7,12 @@ namespace Flexmonster.Blazor
         [JsonPropertyName("drillAll")]
         public bool? DrillAll { get; set; }
 
+        [JsonPropertyName("drillAllRows")]
+        public bool? DrillAllRows { get; set; }
+
+        [JsonPropertyName("drillAllColumns")]
+        public bool? DrillAllColumns { get; set; }
+
         [JsonPropertyName("columns")]
         public HierarchyObjectInSlice[] Columns { get; set; }
 

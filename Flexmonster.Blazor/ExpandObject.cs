@@ -7,6 +7,12 @@ namespace Flexmonster.Blazor
         [JsonPropertyName("expandAll")]
         public bool? ExpandAll { get; set; }
 
+        [JsonPropertyName("expandAllRows")]
+        public bool? ExpandAllRows { get; set; }
+
+        [JsonPropertyName("expandAllColumns")]
+        public bool? ExpandAllColumns { get; set; }
+
         [JsonPropertyName("columns")]
         public HierarchyObjectInSlice[] Columns { get; set; }
 
