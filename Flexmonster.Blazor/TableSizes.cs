@@ -5,9 +5,9 @@ namespace Flexmonster.Blazor
     public class TableSizes
     {
         [JsonPropertyName("columns")]
-        public ColumnSize columns { get; set; }
+        public ColumnSize[] Columns { get; set; }
 
         [JsonPropertyName("rows")]
-        public RowSize rows { get; set; }
+        public RowSize[] Rows { get; set; }
     }
 }

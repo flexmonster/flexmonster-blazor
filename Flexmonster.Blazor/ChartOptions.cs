@@ -13,20 +13,17 @@ namespace Flexmonster.Blazor
         [JsonPropertyName("autoRange")]
         public bool? AutoRange { get; set; }
 
-        [JsonPropertyName("labelsHierarchy")]
-        public string LabelsHierarchy { get; set; }
-
         [JsonPropertyName("multipleMeasures")]
-        public int? MultipleMeasures { get; set; }
+        public bool? MultipleMeasures { get; set; }
 
         [JsonPropertyName("oneLevel")]
-        public string OneLevel { get; set; }
+        public bool? OneLevel { get; set; }
 
         [JsonPropertyName("showFilter")]
-        public string ShowFilter { get; set; }
+        public bool? ShowFilter { get; set; }
 
         [JsonPropertyName("showLegend")]
-        public string ShowLegend { get; set; }
+        public bool? ShowLegend { get; set; }
 
         [JsonPropertyName("showLegendButton")]
         public bool? ShowLegendButton { get; set; }
@@ -53,7 +50,7 @@ namespace Flexmonster.Blazor
         public bool? ShowAllLabels { get; set; }
 
         [JsonPropertyName("showOneMeasureSelection")]
-        public string ShowOneMeasureSelection { get; set; }
+        public bool? ShowOneMeasureSelection { get; set; }
 
         [JsonPropertyName("position")]
         public string Position { get; set; }

@@ -53,7 +53,7 @@ namespace Flexmonster.Blazor
         public bool? ShowMemberProperties { get; set; }
 
         [JsonPropertyName("sorting")]
-        public bool? Sorting { get; set; }
+        public string Sorting { get; set; }
 
         [JsonPropertyName("viewType")]
         public string ViewType { get; set; }
@@ -110,7 +110,7 @@ namespace Flexmonster.Blazor
         public string FieldListPosition { get; set; }
 
         [JsonPropertyName("showEmptyValues")]
-        public string ShowEmptyValues { get; set; }
+        public bool? ShowEmptyValues { get; set; }
 
         [JsonPropertyName("useCaptionsInCalculatedValueEditor")]
         public bool? UseCaptionsInCalculatedValueEditor { get; set; }

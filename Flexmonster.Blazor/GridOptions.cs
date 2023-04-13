@@ -41,6 +41,9 @@ namespace Flexmonster.Blazor
         public string GrandTotalsPosition { get; set; }
 
         [JsonPropertyName("drillThroughMaxRows")]
-        public string DraggdrillThroughMaxRowsing { get; set; }
+        public int? DrillThroughMaxRows { get; set; }
+
+        [JsonPropertyName("autoSwitchToCompact")]
+        public bool? AutoSwitchToCompact { get; set; }
     }
 }
