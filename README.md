@@ -25,7 +25,7 @@ See our [sample Blazor project with Flexmonster](https://github.com/flexmonster/
 
 ## <a name="license"></a>License ##
 
-Here is the [Flexmonster licensing page](https://www.flexmonster.com/pivot-table-editions-and-pricing?r=wrap_blz). We have a free 30-day trial! 
+Here is the [Flexmonster licensing page](https://www.flexmonster.com/pivot-table-editions-and-pricing?r=wrap_blz). We have a 30-day free trial! 
 
 Flexmonster Blazor wrapper is released as an MIT-licensed (free and open-source) add-on to Flexmonster Pivot.
 
