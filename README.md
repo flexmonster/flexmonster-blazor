@@ -17,11 +17,11 @@ Table of contents:
 * [Integration](#integration)
 * [Usage](#usage)
 * [Sample project](#sample-project)
-* [Support and feedback](#support-feedback)
+* [Support and feedback](#support-and-feedback)
 * [License](#license)
 * [Social media](#social-media)
 
-## <a name="integration"></a>Integration ##
+## Integration
 
 Flexmonster documentation provides a detailed step-by-step guide on [іntegration with Blazor](https://www.flexmonster.com/doc/integration-with-blazor?r=wrap_blz). 
 
@@ -30,20 +30,20 @@ This tutorial is also available in video format on our YouTube channel:
 [![Blazor video tutorial](https://static.flexmonster.com/uploads/2023/07/20111521/Screenshot-2023-07-20-at-14.14.12.png)](https://www.youtube.com/watch?v=BW0oUgwai0g)
 
 
-## <a name="usage"></a>Usage ##
+## Usage
 
 The wrapper provides a `FlexmonsterComponent` to add the pivot table to the project. Read more about the component's available parameters and how to set them in the  [FlexmonsterComponent](https://www.flexmonster.com/doc/flexmonster-component-for-blazor?r=wrap_blz) documentation.
 
 Explore the available [methods and events](https://www.flexmonster.com/doc/using-methods-and-events-blazor?r=wrap_blz) to learn the specifics of using and customizing Flexmonster in a Blazor application.
 
-## <a name="sample-project"></a>Sample project ##
+## Sample project
 
 If you look for some reference examples, our team prepared a ready-to-use [Blazor pivot grid sample project](https://github.com/flexmonster/pivot-blazor?r=wrap_blz) with live demos of the most popular use cases. 
 
 In our documentation, you can find [a guide for the sample Blazor application](https://www.flexmonster.com/doc/sample-blazor-project?r=wrap_blz). There you can learn how to run it and what's inside.
 
 
-## <a name="support-feedback"></a>Support and feedback ##
+## Support and feedback
 
 In case of any issues, visit our [troubleshooting section](https://www.flexmonster.com/doc/typical-errors?r=wrap_blz). You can also search among the [resolved cases](https://www.flexmonster.com/technical-support?r=wrap_blz) for a solution to your problem.
 
@@ -51,14 +51,14 @@ To share your feedback or ask questions, contact our Tech team by raising a tick
 
 If you need any help with your license — fill out our [Contact form](https://www.flexmonster.com/contact-our-team?r=wrap_blz), and we will get in touch with you.
 
-## <a name="license"></a>License ##
+## License
 
 Flexmonster Blazor wrapper is released as an MIT-licensed (free and open-source) add-on to Flexmonster Pivot.
 
 To learn about Flexmonster Pivot licenses, visit the [Flexmonster licensing page](https://www.flexmonster.com/pivot-table-editions-and-pricing?r=wrap_blz). 
 If you want to test our product, we provide a 30-day free trial.
 
-## <a name="social-media"></a>Social media ##
+## Social media
 
 Follow us on social media and stay updated on our development process!
 
