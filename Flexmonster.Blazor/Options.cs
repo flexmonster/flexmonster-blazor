@@ -121,7 +121,7 @@ namespace Flexmonster.Blazor
         [JsonPropertyName("readOnly")]
         public bool? ReadOnly { get; set; }
 
-        [JsonPropertyName("distinguishNullUndefinedEmpty ")]
+        [JsonPropertyName("distinguishNullUndefinedEmpty")]
         public bool? DistinguishNullUndefinedEmpty { get; set; }
     }
 }

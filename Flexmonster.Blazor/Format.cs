@@ -31,25 +31,25 @@ namespace Flexmonster.Blazor
         [JsonPropertyName("negativeCurrencyFormat")]
         public string NegativeCurrencyFormat { get; set; }
 
-        [JsonPropertyName("positiveCurrencyFormat ")]
+        [JsonPropertyName("positiveCurrencyFormat")]
         public string PositiveCurrencyFormat { get; set; }
 
-        [JsonPropertyName("nullValue ")]
+        [JsonPropertyName("nullValue")]
         public string NullValue { get; set; }
 
-        [JsonPropertyName("infinityValue ")]
+        [JsonPropertyName("infinityValue")]
         public string InfinityValue { get; set; }
 
-        [JsonPropertyName("divideByZeroValue ")]
+        [JsonPropertyName("divideByZeroValue")]
         public string DivideByZeroValue { get; set; }
 
-        [JsonPropertyName("textAlign ")]
+        [JsonPropertyName("textAlign")]
         public string TextAlign { get; set; }
 
-        [JsonPropertyName("isPercent ")]
+        [JsonPropertyName("isPercent")]
         public bool? IsPercent { get; set; }
 
-        [JsonPropertyName("beautifyFloatingPoint ")]
+        [JsonPropertyName("beautifyFloatingPoint")]
         public bool? BeautifyFloatingPoint { get; set; }
     }
 }

@@ -37,7 +37,7 @@ namespace Flexmonster.Blazor
         [JsonPropertyName("format")]
         public string Format { get; set; }
 
-        [JsonPropertyName("min_doc_count ")]
+        [JsonPropertyName("min_doc_count")]
         public int? MinDocCount { get; set; }
     }
 }
