@@ -88,6 +88,9 @@ namespace Flexmonster.Blazor
         [JsonPropertyName("showAllFieldsDrillThrough")]
         public bool? ShowAllFieldsDrillThrough { get; set; }
 
+        [JsonPropertyName("liveFiltering")]
+        public bool? LiveFiltering { get; set; }
+
         [JsonPropertyName("validateFormulas")]
         public bool? ValidateFormulas { get; set; }
 

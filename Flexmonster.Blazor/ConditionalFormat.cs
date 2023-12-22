@@ -19,6 +19,9 @@ namespace Flexmonster.Blazor
         [JsonPropertyName("column")]
         public int? Column { get; set; }
 
+        [JsonPropertyName("aggregation")]
+        public string Aggregation { get; set; }
+
         [JsonPropertyName("measure")]
         public string Measure { get; set; }
 
