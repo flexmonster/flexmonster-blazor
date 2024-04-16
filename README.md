@@ -1,5 +1,5 @@
 # Blazor pivot table | Flexmonster Pivot Table & Charts wrapper for Blazor
-[![Flexmonster Pivot Table & Charts](https://static.flexmonster.com/uploads/2023/07/19212429/blazor-2.png)](https://www.flexmonster.com?r=wrap_blz)
+[![Flexmonster Pivot Table & Charts](https://cdn.flexmonster.com/readmes/blazor.webp)](https://www.flexmonster.com?r=wrap_blz)
 Website: [flexmonster.com](https://www.flexmonster.com?r=wrap_blz)
 
 [![Nuget](https://img.shields.io/nuget/v/Flexmonster.Blazor )](https://www.nuget.org/packages/Flexmonster.Blazor)
