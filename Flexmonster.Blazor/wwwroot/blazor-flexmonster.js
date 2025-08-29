@@ -1,13 +1,9 @@
 ﻿window.blazorflexmonster = {};
 window.blazorflexmonster.isScriptLoaded = false;
-window.blazorflexmonster.initFlexmonster = (instance, flexmonsterParams, id, javaScriptHandler) => {
+window.blazorflexmonster.initFlexmonster = (instance, flexmonsterParams, id, javaScriptHandler, theme) => {
     if (!window.blazorflexmonster.isScriptLoaded) {
         if (window.blazorflexmonster.script === undefined) {
-            var link = document.createElement("link");
-            link.rel = "stylesheet"
-            link.href = "_content/Flexmonster.Blazor/flexmonster/flexmonster.min.css";
-            document.head.appendChild(link);
-
+            addTheme(theme);
             window.blazorflexmonster.script = document.createElement("script");
             window.blazorflexmonster.script.src = "_content/Flexmonster.Blazor/flexmonster/flexmonster.full.js";
 
@@ -30,6 +26,20 @@ window.blazorflexmonster.exportToApiCall = (id, instance, type, params) => {
         });
     } else {
         window[id].exportTo(type, params);
+    }
+}
+
+function addTheme(theme) {
+    if (theme !== "none") {
+        var link = document.createElement("link");
+        link.rel = "stylesheet"
+        if (theme) {
+            link.href = "_content/Flexmonster.Blazor/flexmonster/theme/" + theme + "/flexmonster.min.css";
+        }
+        else {
+            link.href = "_content/Flexmonster.Blazor/flexmonster/flexmonster.min.css";
+        }
+        document.head.appendChild(link);
     }
 }
 

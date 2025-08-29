@@ -47,6 +47,9 @@ namespace Flexmonster.Blazor
         [Parameter]
         public string JavaScriptHandler { get; set; }
 
+        [Parameter]
+        public string Theme { get; set; }
+
         protected string id;
 
         internal FlexmonsterBaseInternal _flexmonsterBaseInternal;
@@ -1102,7 +1105,7 @@ namespace Flexmonster.Blazor
                 };
                 var flexmonsterParametersWithoutNulls = RemoveNulls(flexmonsterParameters);
                 _pivot = await JsRuntime.InvokeAsync<object>("blazorflexmonster.initFlexmonster",
-                                                   CreateDotNetObjectRef(_flexmonsterBaseInternal), flexmonsterParametersWithoutNulls, id, JavaScriptHandler).ConfigureAwait(false);
+                                                   CreateDotNetObjectRef(_flexmonsterBaseInternal), flexmonsterParametersWithoutNulls, id, JavaScriptHandler, Theme).ConfigureAwait(false);
             }
             await base.OnAfterRenderAsync(firstRender);
         }
